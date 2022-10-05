@@ -1,0 +1,17 @@
+name: clj-toolbox build, test, and upload jar
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - run: lein test
+    - run: lein cloverage
