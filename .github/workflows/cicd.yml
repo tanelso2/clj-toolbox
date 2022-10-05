@@ -1,4 +1,4 @@
-name: clj-toolbox build, test, and upload jar
+name: clj-toolbox build
 
 on:
   push:
@@ -14,4 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: lein test
-    - run: lein cloverage
+    - run: |
+        lein cloverage --codecov; \
+        bash <(curl -s https://codecov.io/bash) -f target/coverage/codecov.json
