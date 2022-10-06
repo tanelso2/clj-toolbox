@@ -61,6 +61,7 @@
       "
       []
       (.getTime (java.util.Date.))))
+
 #?(:clj
     (defn parse-int
       "Shortcut for Integer/parseInt to make it easier to pass around as an argument"

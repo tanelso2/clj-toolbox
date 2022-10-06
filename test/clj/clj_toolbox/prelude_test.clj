@@ -54,8 +54,8 @@
     (is (= (+ 1 @fibonacci-max-input)
            (count @fibonacci-calls)))
     ; Make sure there are no repeats since it should be memoizing everything
-    (is (= (count (distinct @fibonacci-calls))
-           (count @fibonacci-calls)))))
+    (is (apply distinct? @fibonacci-calls))))
+        
 
 (defntest into-map
   [:id :val [{:id  :a
@@ -64,3 +64,4 @@
               :val :d}]]  {:a :b :c :d}
 
   [inc [0 1]] {1 0 2 1})
+
