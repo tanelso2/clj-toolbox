@@ -1,9 +1,10 @@
-(defproject org.clojars.tanelso2/clj-toolbox "0.2.0"
+(defproject org.clojars.tanelso2/clj-toolbox "0.2.1"
   :description "A collection of tools for use in other Clojure projects"
   :url "https://github.com/tanelso2/clj-toolbox"
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies []
+  :dependencies [[org.clojure/core.async "1.3.618"]
+                 [org.clojure/data.json "2.3.1"]]
   :plugins [[lein-cloverage "1.0.13"]
             [lein-shell "0.5.0"]
             [lein-ancient "0.6.15"]

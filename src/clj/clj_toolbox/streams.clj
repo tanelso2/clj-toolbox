@@ -1,0 +1,20 @@
+(ns clj-toolbox.streams
+  (:import
+    [java.io PipedInputStream
+             PipedOutputStream]))
+
+(defn string->stream
+  [s]
+  (-> s
+      (.getBytes)
+      (java.io.ByteArrayInputStream.)))
+
+(defn stream->string
+  [in-stream]
+  (slurp in-stream))
+
+(defn make-paired-streams
+  []
+  (let [in-stream (PipedInputStream.)
+        out-stream (PipedOutputStream. in-stream)]
+    [in-stream out-stream]))
