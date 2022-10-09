@@ -13,7 +13,7 @@
 (defmacro defntest
  "
   Defines a series of tests for function f
-  Each test-pair consists of 
+  Each test-pair consists of
     args expected
   where args is a vector of arguments to f and expected is the expected return value of (apply f args)
  "
@@ -34,7 +34,7 @@
 (defmacro defntest-1
   "
   Defines a series of tests for 1-arity function f
-  Each test-pair consists of 
+  Each test-pair consists of
     arg expected
   where arg is a single argument to f and expected is the expected return value of (apply f [arg])
   "
