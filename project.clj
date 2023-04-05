@@ -1,4 +1,4 @@
-(defproject org.clojars.tanelso2/clj-toolbox "0.3.1-SNAPSHOT"
+(defproject org.clojars.tanelso2/clj-toolbox "0.3.2"
   :description "A collection of tools for use in other Clojure projects"
   :url "https://github.com/tanelso2/clj-toolbox"
   :license {:name "Eclipse Public License"
