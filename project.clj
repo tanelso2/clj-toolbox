@@ -29,4 +29,6 @@
                   ["vcs" "commit"]
                   ["vcs" "tag" "--no-sign"]
                   ["deploy"]
+                  ["change" "version" "str" "-SNAPSHOT"]
+                  ["vcs" "commit"]
                   ["vcs" "push"]])
