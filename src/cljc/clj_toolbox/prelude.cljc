@@ -47,7 +47,9 @@
   "
     Transforms coll into a hash-map by using (kf x) as the key and (vf x) as the value for each x in coll
     vf defaults to identity if not provided
+    if only coll is provided, will assume coll is a list of pairs
   "
+  ([coll] (into {} coll))
   ([kf coll]
    (into-map kf identity coll))
   ([kf vf coll]

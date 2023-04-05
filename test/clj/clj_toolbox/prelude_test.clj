@@ -58,10 +58,17 @@
         
 
 (defntest into-map
+  ;; kf, vf and coll provided
   [:id :val [{:id  :a
               :val :b}
              {:id  :c
-              :val :d}]]  {:a :b :c :d}
+              :val :d}]]  {:a :b, :c :d}
 
-  [inc [0 1]] {1 0 2 1})
+  ;; kf and coll provided
+  [inc [0 1]] {1 0 2 1}
+  [keyword ["a" "b"]] {:a "a", :b "b"}
+  ;; Only coll provided
+  [[]] {} ; empty coll
+  [[[:a :b]]] {:a :b}
+  [[[:a :b] [:c :d]]] {:a :b, :c :d})
 
