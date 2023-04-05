@@ -22,13 +22,13 @@
   :test-paths ["test/clj" "test/cljc" "test/cljs"]
   :aliases {"update-readme-version" ["shell" "sed" "-i" "s/\\\\[clj-toolbox \"[0-9.]*\"\\\\]/[clj-toolbox \"${:version}\"]/" "README.md"]}
   :release-tasks [["shell" "git" "diff" "--exit-code"]
-                  ["change" "version" "leiningen.release/bump-version"]
                   ["change" "version" "leiningen.release/bump-version" "release"]
                   ["changelog" "release"]
                   ["update-readme-version"]
                   ["vcs" "commit"]
                   ["vcs" "tag" "--no-sign"]
                   ["deploy"]
+                  ["change" "version" "leiningen.release/bump-version" "patch"]
                   ["change" "version" "str" "-SNAPSHOT"]
                   ["vcs" "commit"]
                   ["vcs" "push"]])
