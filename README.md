@@ -6,7 +6,7 @@
 A Clojure library designed to ... well, that part is up to you.
 
 ```clj
-[clj-toolbox "0.3.2"]
+[clj-toolbox "0.3.3"]
 ```
 
 ## Usage
