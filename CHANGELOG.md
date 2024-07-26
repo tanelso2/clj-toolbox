@@ -8,9 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.5.0] — 2024-07-26
+
 ## [0.4.0] — 2023-04-05
 - Figured out how the release process should work
 
 
 [0.4.0]: https://github.com/tanelso2/clj-toolbox/compare/0.0.0...0.4.0
-[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.4.0...HEAD
+[0.5.0]: https://github.com/tanelso2/clj-toolbox/compare/0.4.0...0.5.0
+[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.5.0...HEAD
