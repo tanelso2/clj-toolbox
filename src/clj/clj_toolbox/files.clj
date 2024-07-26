@@ -40,3 +40,16 @@
       (str/split #"/")
       last))
 
+(defn path-join
+  "Returns a string representing the paths joined"
+  [& paths]
+  (->> paths
+       (apply io/file)
+       (.getPath)))
+
+(defn abs-path-join
+  "Returns a string representing the absolute path of the paths joined"
+  [& paths]
+  (->> paths
+       (apply io/file)
+       (.getAbsolutePath)))
