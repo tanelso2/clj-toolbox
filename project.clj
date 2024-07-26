@@ -1,4 +1,4 @@
-(defproject org.clojars.tanelso2/clj-toolbox "0.5.0"
+(defproject org.clojars.tanelso2/clj-toolbox "0.5.1-SNAPSHOT"
   :description "A collection of tools for use in other Clojure projects"
   :url "https://github.com/tanelso2/clj-toolbox"
   :license {:name "Eclipse Public License"
@@ -15,9 +15,9 @@
                                      :username :env/clojars_username
                                      :password :env/clojars_deploy_key}]
                         ["snapshots" :clojars]
-                        ["clojars" {:sign-releases false}]]
-                                    ;:username :env/clojars_username
-                                    ;:password :env/clojars_deploy_key}]]
+                        ["clojars" {:sign-releases false
+                                    :username :env/clojars_username
+                                    :password :env/clojars_deploy_key}]]
   :source-paths ["src/clj" "src/cljc" "src/cljs"]
   :test-paths ["test/clj" "test/cljc" "test/cljs"]
   :aliases {"update-readme-version" ["shell" "sed" "-i" "s/\\\\[clj-toolbox \"[0-9.]*\"\\\\]/[clj-toolbox \"${:version}\"]/" "README.md"]}
