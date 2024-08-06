@@ -2,7 +2,7 @@
   (:require
     [clojure.java.io :as io]
     [clojure.string :as str])
-  (:import 
+  (:import
     [java.io File]
     [java.nio.file Files]))
 
@@ -16,6 +16,14 @@
   [filename]
   (let [f (io/file filename)]
     (and (some? f)
+         (.isFile f)
+         (.exists f))))
+
+(defn dir-exists?
+  [d]
+  (let [f (io/file d)]
+    (and (some? f)
+         (.isDirectory f)
          (.exists f))))
 
 (defn file-last-modified
@@ -39,6 +47,17 @@
   (-> path
       (str/split #"/")
       last))
+
+(defn path->ext
+  [path]
+  (let [l (-> path
+              (str/split #"/")
+              last
+              (str/split #"\."))]
+    (if (= 1 (count l))
+      ""
+      (last l))))
+    
 
 (defn path-join
   "Returns a string representing the paths joined"
