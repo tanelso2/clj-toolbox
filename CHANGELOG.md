@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.6.0] — 2024-08-05
+
 ## [0.5.1] — 2024-07-26
 
 ## [0.5.0] — 2024-07-26
@@ -19,4 +21,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [0.4.0]: https://github.com/tanelso2/clj-toolbox/compare/0.0.0...0.4.0
 [0.5.0]: https://github.com/tanelso2/clj-toolbox/compare/0.4.0...0.5.0
 [0.5.1]: https://github.com/tanelso2/clj-toolbox/compare/0.5.0...0.5.1
-[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.5.1...HEAD
+[0.6.0]: https://github.com/tanelso2/clj-toolbox/compare/0.5.1...0.6.0
+[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.6.0...HEAD
