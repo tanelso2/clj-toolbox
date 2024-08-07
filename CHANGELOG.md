@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+
+## [0.7.1] — 2024-08-07
 * Add files/strip-ext
 
 ## [0.7.0] — 2024-08-06
@@ -28,4 +30,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [0.5.1]: https://github.com/tanelso2/clj-toolbox/compare/0.5.0...0.5.1
 [0.6.0]: https://github.com/tanelso2/clj-toolbox/compare/0.5.1...0.6.0
 [0.7.0]: https://github.com/tanelso2/clj-toolbox/compare/0.6.0...0.7.0
-[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.7.0...HEAD
+[0.7.1]: https://github.com/tanelso2/clj-toolbox/compare/0.7.0...0.7.1
+[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.7.1...HEAD
