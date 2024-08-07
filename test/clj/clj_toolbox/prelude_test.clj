@@ -55,7 +55,14 @@
            (count @fibonacci-calls)))
     ; Make sure there are no repeats since it should be memoizing everything
     (is (apply distinct? @fibonacci-calls))))
-        
+
+(defntest-1 derefable?
+  + false
+  1 false
+  :x false
+  'y false
+  (atom 1) true
+  (future 1) true)
 
 (defntest into-map
   ;; kf, vf and coll provided
@@ -72,3 +79,21 @@
   [[[:a :b]]] {:a :b}
   [[[:a :b] [:c :d]]] {:a :b, :c :d})
 
+(deftest update!-test
+  (testing 'update!
+    (let [m (transient {:a 1 :b 2})
+          a1 (get m :a)
+          b1 (get m :b)
+          m (update! m :a inc)
+          a2 (get m :a)
+          b2 (get m :b)
+          m (persistent! m)
+          a3 (get m :a)
+          b3 (get m :b)]
+      (are [actual expected] (= actual expected)
+        a1 1
+        b1 2
+        a2 2
+        b2 2
+        a3 2
+        b3 2))))

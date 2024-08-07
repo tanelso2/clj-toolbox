@@ -47,3 +47,20 @@
       (spit test-path "Hello")
       (is (false? (dir-exists? test-path))))))
 
+(deftest file-mkdir-test
+  (testing 'file-mkdir
+    (let [dir (create-temp-dir)
+          test-dir (str/join "/" [dir "test"])]
+      (is (true? (dir-exists? dir)))
+      (is (false? (dir-exists? test-dir)))
+      (file-mkdir test-dir)
+      (is (true? (dir-exists? test-dir))))))
+
+(deftest file-mkdirs-test
+  (testing 'file-mkdirs
+    (let [dir (create-temp-dir)
+          test-dir (str/join "/" [dir "test" "long" "path"])]
+      (is (true? (dir-exists? dir)))
+      (is (false? (dir-exists? test-dir)))
+      (file-mkdirs test-dir)
+      (is (true? (dir-exists? test-dir))))))

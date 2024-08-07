@@ -30,9 +30,9 @@
 
 (defntest bare-ignore-args-test-fn
   []               ret
-  [1 2 3]          {:exn clojure.lang.ArityException}
-  [nil]            {:exn clojure.lang.ArityException}
-  [ret ret ret]    {:exn clojure.lang.ArityException})
+  [1 2 3]          (thrown? clojure.lang.ArityException)
+  [nil]            (thrown? clojure.lang.ArityException)
+  [ret ret ret]    (thrown? clojure.lang.ArityException))
 
 (def wrapped-ignore-args-test-fn (ignore-args bare-ignore-args-test-fn))
 

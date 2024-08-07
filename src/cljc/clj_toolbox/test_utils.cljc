@@ -1,29 +1,49 @@
 (ns clj-toolbox.test-utils
   (:require [clojure.test :refer :all]))
 
-(defn matches-expectations
+(defmacro make-test-body
   [expected f input]
-  (try
-    (let [actual (apply f input)]
-      (= expected actual))
-    (catch Exception e
-      (and (contains? expected :exn)
-           (instance? (:exn expected) e)))))
+  (cond
+    (and
+      (list? expected)
+      (= 'thrown? (first expected))) 
+    (let [exn (second expected)]
+      ; We build lists manually instead of using quasiquoting
+      ; so that `is` has more readable error messages
+      (list `is (list 'thrown?
+                      exn
+                      (list 'apply f input))))
+    (and
+      (list? expected)
+      (= 'thrown-with-msg? (first expected))) 
+    (let [exn (second expected)
+          re (nth expected 2)]
+      (list `is (list 'thrown-with-msg? 
+                      exn 
+                      re 
+                      (list 'apply f input))))
+    :else (list `is (list '= expected (list 'apply f input)))))
 
 (defmacro defntest
- "
-  Defines a series of tests for function f
-  Each test-pair consists of
-    args expected
-  where args is a vector of arguments to f and expected is the expected return value of (apply f args)
- "
- [f & test-pairs]
- (let [funcname (str f)
-       sym (symbol (str f "-test"))]
+  "
+   Defines a series of tests for function f
+   Each test-pair consists of
+     args expected
+   where args is a vector of arguments to f and expected is the expected return value of (apply f args)
+  "
+  [f & test-pairs]
+  (assert (even? (count test-pairs)) 
+          (str "Need even number of pairs. Actual: " (count test-pairs)))
+  (let [funcname (str f)
+        sym (symbol (str f "-test"))
+        cases (partition 2 test-pairs)
+        v (map-indexed (fn [i [input expected]] [i input expected]) 
+                       cases)]
    `(deftest ~sym
       (testing ~funcname
-        (are [input expected] (matches-expectations expected ~f input)
-          ~@test-pairs)))))
+        ~@(for [[i in exp] v]
+            `(testing ~(str "case" i)
+                (make-test-body ~exp ~f ~in)))))))
 
 (defn- wrap-first-arg-for-apply
   [coll]
