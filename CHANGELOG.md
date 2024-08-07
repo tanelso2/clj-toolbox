@@ -7,8 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+* Add files/strip-ext
 
 ## [0.7.0] — 2024-08-06
+* Change output of test-utils so they produce readable errors
 
 ## [0.6.0] — 2024-08-05
 * Added `clj-toolbox.files/[dir-exists? path->ext]`

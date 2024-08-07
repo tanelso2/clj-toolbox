@@ -11,13 +11,20 @@
   "/bin/bash" "bash"
   "/bin" "bin"
   "/usr/bin/env" "env"
-  "foo/bar/baz.conf" "baz.conf")
+  "foo/bar/baz.conf" "baz.conf"
+  "/etc/nixos/configuration.nix" "configuration.nix")
 
 (defntest-1 path->ext
   "/bin/blah.txt" "txt"
   "/usr/nginx/nginx.conf" "conf"
   "/bin/bash" ""
   "app.py" "py")
+
+(defntest-1 strip-ext
+  "/bin/blah.txt" "/bin/blah"
+  "/usr/nginx/nginx.conf" "/usr/nginx/nginx"
+  "/bin/bash" "/bin/bash"
+  "app.py" "app")
 
 (deftest file-exists?-test
   (testing 'file-exists?

@@ -40,27 +40,34 @@
   [filename]
   (.mkdirs (io/file filename)))
 
-(defn path->filename 
+(defn path->filename
   "Gets the filename from a path
    Assumes unix-style paths e.g. foo/bar/baz.conf"
   [path]
-  (-> path
-      (str/split #"/")
-      last))
+  (let [i (str/last-index-of path \/)]
+    (if (nil? i)
+      path
+      (subs path (inc i)))))
 
 (defn path->ext
+  "Gets the extension from a path"
   [path]
-  (let [l (-> path
-              (str/split #"/")
-              last
-              (str/split #"\."))]
-    (if (= 1 (count l))
+  (let [i (str/last-index-of path \.)]
+    (if (nil? i)
       ""
-      (last l))))
-    
+      (subs path (inc i)))))
+
+(defn strip-ext
+  "Strips the extension from a path"
+  [path]
+  (let [i (str/last-index-of path \.)]
+    (if (nil? i)
+      path
+      (subs path 0 i))))
 
 (defn path-join
-  "Returns a string representing the paths joined"
+  "Returns a string representing the paths joined
+   Return values differ based on platform"
   [& paths]
   (->> paths
        (apply io/file)
