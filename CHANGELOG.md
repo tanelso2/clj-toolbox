@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.7.0] — 2024-08-06
+
 ## [0.6.0] — 2024-08-05
 * Added `clj-toolbox.files/[dir-exists? path->ext]`
 
@@ -23,4 +25,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [0.5.0]: https://github.com/tanelso2/clj-toolbox/compare/0.4.0...0.5.0
 [0.5.1]: https://github.com/tanelso2/clj-toolbox/compare/0.5.0...0.5.1
 [0.6.0]: https://github.com/tanelso2/clj-toolbox/compare/0.5.1...0.6.0
-[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.6.0...HEAD
+[0.7.0]: https://github.com/tanelso2/clj-toolbox/compare/0.6.0...0.7.0
+[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.7.0...HEAD
