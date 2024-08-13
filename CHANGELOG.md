@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+
+## [0.7.2] — 2024-08-13
 * Added files/read-all
 
 ## [0.7.1] — 2024-08-07
@@ -32,4 +34,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [0.6.0]: https://github.com/tanelso2/clj-toolbox/compare/0.5.1...0.6.0
 [0.7.0]: https://github.com/tanelso2/clj-toolbox/compare/0.6.0...0.7.0
 [0.7.1]: https://github.com/tanelso2/clj-toolbox/compare/0.7.0...0.7.1
-[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.7.1...HEAD
+[0.7.2]: https://github.com/tanelso2/clj-toolbox/compare/0.7.1...0.7.2
+[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.7.2...HEAD
