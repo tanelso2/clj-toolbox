@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+* Added files/read-all
 
 ## [0.7.1] — 2024-08-07
 * Add files/strip-ext

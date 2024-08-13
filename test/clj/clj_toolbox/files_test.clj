@@ -71,3 +71,26 @@
       (is (false? (dir-exists? test-dir)))
       (file-mkdirs test-dir)
       (is (true? (dir-exists? test-dir))))))
+
+(deftest read-all-test
+  (testing 'read-all
+    (let [dir (create-temp-dir)
+          test-file (path-join dir "test.clj")]
+      (spit test-file "
+            (abc 123)
+            {:a 1 :b 2}
+            [1 2 3]
+            ")
+      (let [r (read-all test-file)]
+        (is (seq? r))
+        (is (= 3 (count r)))
+        (let [[l m v] r]
+          (is (list? l))
+          (is (= 2 (count l)))
+          (is (map? m))
+          (is (= 2 (count m)))
+          (is (= 1 (:a m)))
+          (is (= 2 (:b m)))
+          (is (vector? v))
+          (is (= 3 (count v)))
+          (is (= [1 2 3] v)))))))

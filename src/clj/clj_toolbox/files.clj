@@ -79,3 +79,16 @@
   (->> paths
        (apply io/file)
        (.getAbsolutePath)))
+
+(defn read-all
+ "
+  Reads all Clojure forms from file {f}
+ "
+ [f]
+ (binding [*default-data-reader-fn* (if (nil? *default-data-reader-fn*)
+                                      tagged-literal
+                                      *default-data-reader-fn*)]
+   (with-open [in (java.io.PushbackReader. (clojure.java.io/reader f))]
+    (let [obj-seq (repeatedly (partial read {:eof :theend} in))]
+      (doall (take-while (partial not= :theend) obj-seq))))))
+
