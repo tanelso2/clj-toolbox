@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 * Add files/create-temp-file
+* Add prelude/strict-partition
+* Fix test-utils/defntest-1 from silently dropping a mismatched test-pair
 
 ## [0.7.2] — 2024-08-13
 * Added files/read-all

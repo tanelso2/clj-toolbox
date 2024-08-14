@@ -108,3 +108,19 @@
   (->> coll
        (map f)
        (average)))
+
+#?(:clj
+    (defn ^{:see-also clojure.core/partition}
+      strict-partition 
+      "
+        Like parition, but throws an exception if the number of elements in coll
+        are not evenly divisible by n, instead of partition's behavior of having
+        the last group be too small.
+      "
+      [n coll]
+      (let [c (count coll)]
+        (when (not= 0 (mod c n))
+          (throw
+            (IllegalArgumentException.
+              (str "Cannot partition " c " elements into lists of size " n " evenly.")))))
+      (partition n coll)))
