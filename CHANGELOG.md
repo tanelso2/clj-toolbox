@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+* Add files/create-temp-file
 
 ## [0.7.2] — 2024-08-13
 * Added files/read-all
