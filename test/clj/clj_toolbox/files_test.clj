@@ -94,3 +94,11 @@
           (is (vector? v))
           (is (= 3 (count v)))
           (is (= [1 2 3] v)))))))
+
+(deftest temp-file-test
+  (testing 'create-temp-file
+    (let [f (create-temp-file)]
+      (is (file-exists? f))
+      (is (empty? (slurp f)))
+      (spit f "Hello world") ; Check is writable
+      (is (not (empty? (slurp f)))))))

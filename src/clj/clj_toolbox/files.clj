@@ -12,6 +12,13 @@
   (.toString (Files/createTempDirectory prefix
                (into-array java.nio.file.attribute.FileAttribute []))))
 
+(defn create-temp-file
+  [& {:keys [prefix suffix]
+      :or {prefix ""
+           suffix ""}}]
+  (.toString (Files/createTempFile prefix suffix
+              (into-array java.nio.file.attribute.FileAttribute []))))
+
 (defn file-exists?
   [filename]
   (let [f (io/file filename)]
