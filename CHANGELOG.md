@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+
+## [0.7.3] — 2024-08-14
 * Add files/create-temp-file
 * Add prelude/strict-partition
 * Fix test-utils/defntest-1 from silently dropping a mismatched test-pair
@@ -38,4 +40,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [0.7.0]: https://github.com/tanelso2/clj-toolbox/compare/0.6.0...0.7.0
 [0.7.1]: https://github.com/tanelso2/clj-toolbox/compare/0.7.0...0.7.1
 [0.7.2]: https://github.com/tanelso2/clj-toolbox/compare/0.7.1...0.7.2
-[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.7.2...HEAD
+[0.7.3]: https://github.com/tanelso2/clj-toolbox/compare/0.7.2...0.7.3
+[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.7.3...HEAD
