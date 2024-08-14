@@ -97,3 +97,9 @@
         b2 2
         a3 2
         b3 2))))
+
+(defntest strict-partition
+  [3 [1 2 3 4 5 6]] [[1 2 3] [4 5 6]]
+  [3 [1 2 3 4 5]] (thrown? IllegalArgumentException)
+  [2 [1 2 3 4]] [[1 2] [3 4]]
+  [2 [1 2 3]] (thrown? IllegalArgumentException))

@@ -1,12 +1,13 @@
 (ns clj-toolbox.test-utils
-  (:require [clojure.test :refer :all]))
+  (:require [clojure.test :refer :all]
+            [clj-toolbox.prelude :refer [strict-partition]]))
 
 (defmacro make-test-body
   [expected f input]
   (cond
     (and
       (list? expected)
-      (= 'thrown? (first expected))) 
+      (= 'thrown? (first expected)))
     (let [exn (second expected)]
       ; We build lists manually instead of using quasiquoting
       ; so that `is` has more readable error messages
@@ -15,12 +16,12 @@
                       (list 'apply f input))))
     (and
       (list? expected)
-      (= 'thrown-with-msg? (first expected))) 
+      (= 'thrown-with-msg? (first expected)))
     (let [exn (second expected)
           re (nth expected 2)]
-      (list `is (list 'thrown-with-msg? 
-                      exn 
-                      re 
+      (list `is (list 'thrown-with-msg?
+                      exn
+                      re
                       (list 'apply f input))))
     :else (list `is (list '= expected (list 'apply f input)))))
 
@@ -32,12 +33,13 @@
    where args is a vector of arguments to f and expected is the expected return value of (apply f args)
   "
   [f & test-pairs]
-  (assert (even? (count test-pairs)) 
-          (str "Need even number of pairs. Actual: " (count test-pairs)))
+  (let [c (count test-pairs)]
+    (assert (even? c)
+            (str "Need even number of arguments to defntest. Actual: " c)))
   (let [funcname (str f)
         sym (symbol (str f "-test"))
         cases (partition 2 test-pairs)
-        v (map-indexed (fn [i [input expected]] [i input expected]) 
+        v (map-indexed (fn [i [input expected]] [i input expected])
                        cases)]
    `(deftest ~sym
       (testing ~funcname
@@ -48,7 +50,7 @@
 (defn- wrap-first-arg-for-apply
   [coll]
   (->> coll
-       (partition 2)
+       (strict-partition 2)
        (mapcat (fn [[x y]] [[x] y]))))
 
 (defmacro defntest-1
@@ -59,5 +61,8 @@
   where arg is a single argument to f and expected is the expected return value of (apply f [arg])
   "
   [f & test-pairs]
+  (let [c (count test-pairs)]
+    (assert (even? c)
+            (str "Need even number of arguments to defntest-1. Actual: " c)))
   `(defntest ~f
      ~@(wrap-first-arg-for-apply test-pairs)))
