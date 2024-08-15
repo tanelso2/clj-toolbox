@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+
+## [0.8.0] — 2024-08-15
 * Add string-tools/box-trim
 * Add prelude/take-range
 * Generate a more unique name for tests defined with defntest
@@ -44,4 +46,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [0.7.1]: https://github.com/tanelso2/clj-toolbox/compare/0.7.0...0.7.1
 [0.7.2]: https://github.com/tanelso2/clj-toolbox/compare/0.7.1...0.7.2
 [0.7.3]: https://github.com/tanelso2/clj-toolbox/compare/0.7.2...0.7.3
-[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.7.3...HEAD
+[0.8.0]: https://github.com/tanelso2/clj-toolbox/compare/0.7.3...0.8.0
+[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.8.0...HEAD
