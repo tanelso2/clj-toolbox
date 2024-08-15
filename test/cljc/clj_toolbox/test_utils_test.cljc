@@ -46,10 +46,10 @@
 
 (deftest test-functions-get-called
   (testing "defntest-1"
-    (inc_-test)
+    (inc_-defntest-test)
     (testing "functions get called"
       (is (true? @inc_-called))))
   (testing "defntest"
-    (max_-test)
+    (max_-defntest-test)
     (testing "functions get called"
       (is (true? @max_-called)))))

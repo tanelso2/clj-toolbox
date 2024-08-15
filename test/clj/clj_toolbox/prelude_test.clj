@@ -103,3 +103,13 @@
   [3 [1 2 3 4 5]] (thrown? IllegalArgumentException)
   [2 [1 2 3 4]] [[1 2] [3 4]]
   [2 [1 2 3]] (thrown? IllegalArgumentException))
+
+(defntest take-range
+  [1 2 [1 2 3]] [2]
+  [5 2 [1 2 3]] (thrown? AssertionError)
+  [1 3 [1 2 3 4]] [2 3])
+
+(deftest take-range-test
+  (testing 'take-range-zero-to-length
+    (let [v [1 2 3]]
+      (is (= v (take-range 0 (count v) v))))))

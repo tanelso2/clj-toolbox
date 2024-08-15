@@ -124,3 +124,13 @@
             (IllegalArgumentException.
               (str "Cannot partition " c " elements into lists of size " n " evenly.")))))
       (partition n coll)))
+
+(defn take-range
+  "
+    Returns the part of the coll from index start (inclusive) to end (exclusive).
+  "
+  [start end coll]
+  (assert (>= end start) "Can't take a range from a higher number to a lower number")
+  (->> coll
+       (drop start)
+       (take (- end start))))

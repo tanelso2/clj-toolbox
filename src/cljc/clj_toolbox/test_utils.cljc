@@ -37,7 +37,7 @@
     (assert (even? c)
             (str "Need even number of arguments to defntest. Actual: " c)))
   (let [funcname (str f)
-        sym (symbol (str f "-test"))
+        sym (symbol (str f "-defntest-test"))
         cases (partition 2 test-pairs)
         v (map-indexed (fn [i [input expected]] [i input expected])
                        cases)]

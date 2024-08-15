@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+* Add string-tools/box-trim
+* Add prelude/take-range
+* Generate a more unique name for tests defined with defntest
 
 ## [0.7.3] — 2024-08-14
 * Add files/create-temp-file
