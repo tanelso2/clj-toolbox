@@ -4,26 +4,26 @@
 
 (defn box-trim
   [s]
-  (let [first-line (atom nil)
-        last-line (atom nil)
-        left-bound (atom nil)
-        right-bound (atom nil)
-        lines (str/split-lines s)
-        found-char (atom false)]
+  (let [first-line (volatile! nil)
+        last-line (volatile! nil)
+        left-bound (volatile! nil)
+        right-bound (volatile! nil)
+        found-char (volatile! false)
+        lines (str/split-lines s)]
     (doseq [[^int row ^String line] (map-indexed vector lines)
             [^int col ^char c] (map-indexed vector line)]
       (when (not (Character/isWhitespace c))
         (if (not @found-char)
           (do
-            (reset! first-line row)
-            (reset! last-line row)
-            (reset! left-bound col)
-            (reset! right-bound col)
-            (reset! found-char true))
+            (vreset! first-line row)
+            (vreset! last-line row)
+            (vreset! left-bound col)
+            (vreset! right-bound col)
+            (vreset! found-char true))
           (do
-            (swap! last-line max row)
-            (swap! left-bound min col)
-            (swap! right-bound max col)))))
+            (vswap! last-line max row)
+            (vswap! left-bound min col)
+            (vswap! right-bound max col)))))
     (if (not @found-char)
       ""
       (let [valid-lines (->> lines

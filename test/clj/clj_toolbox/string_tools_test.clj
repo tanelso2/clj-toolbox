@@ -24,4 +24,9 @@
    def
      i
   "
-  " bc\ndef\n  i")
+  " bc\ndef\n  i"
+  ; String of whitespace becomes empty string
+  "
+
+  "
+  "")

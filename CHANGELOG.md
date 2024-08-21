@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+* Switch string-tools/box-trim to use volatiles internally instead of atoms
 
 ## [0.8.0] — 2024-08-15
 * Add string-tools/box-trim
