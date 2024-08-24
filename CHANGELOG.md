@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+
+## [0.8.2] — 2024-08-24
 * Fix string-tools/box-trim throwing exceptions when some lines are bigger than others
 * Add test-utils/with-expected-output to be similar to expect tests in OCaml
 
@@ -53,4 +55,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [0.7.3]: https://github.com/tanelso2/clj-toolbox/compare/0.7.2...0.7.3
 [0.8.0]: https://github.com/tanelso2/clj-toolbox/compare/0.7.3...0.8.0
 [0.8.1]: https://github.com/tanelso2/clj-toolbox/compare/0.8.0...0.8.1
-[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.8.1...HEAD
+[0.8.2]: https://github.com/tanelso2/clj-toolbox/compare/0.8.1...0.8.2
+[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.8.2...HEAD
