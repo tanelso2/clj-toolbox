@@ -29,4 +29,23 @@
   "
 
   "
-  "")
+  ""
+  ; Lines of different lengths
+  "
+    abc
+   def
+  ghi
+  "
+  "  abc\n def\nghi"
+  "
+           s
+    o
+           s
+  "
+  "       s\no\n       s"
+  "
+           s
+    o
+               s
+  "
+  "       s\no\n           s")

@@ -31,4 +31,6 @@
                              (take (+ 1 (- @last-line @first-line))))]
         (str/join "\n"
           (for [v valid-lines]
-            (subs v @left-bound (inc @right-bound))))))))
+            (let [end (min (inc @right-bound)
+                           (count v))]
+              (subs v @left-bound end))))))))

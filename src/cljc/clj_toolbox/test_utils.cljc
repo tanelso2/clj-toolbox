@@ -1,6 +1,7 @@
 (ns clj-toolbox.test-utils
   (:require [clojure.test :refer :all]
-            [clj-toolbox.prelude :refer [strict-partition]]))
+            [clj-toolbox.prelude :refer [strict-partition]]
+            [clj-toolbox.string-tools :refer [box-trim]]))
 
 (defmacro make-test-body
   [expected f input]
@@ -66,3 +67,8 @@
             (str "Need even number of arguments to defntest-1. Actual: " c)))
   `(defntest ~f
      ~@(wrap-first-arg-for-apply test-pairs)))
+
+(defmacro with-expected-output
+  [expected & body]
+  `(let [actual# (with-out-str ~@body)]
+      (is (= (box-trim ~expected) (box-trim actual#)))))

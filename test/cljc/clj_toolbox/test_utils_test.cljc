@@ -53,3 +53,29 @@
     (max_-defntest-test)
     (testing "functions get called"
       (is (true? @max_-called)))))
+
+(deftest with-expected-output-test
+  (testing 'simple-output
+    (with-expected-output "
+                          hello
+                          world
+                          "
+      (println "hello")
+      (println "world")))
+  (testing 'loops
+    (with-expected-output "
+                          1
+                          2
+                          3
+                          4
+                          5
+                          "
+      (doseq [x (range 1 6)]
+        (println x)))
+    (with-expected-output "
+                          Hello Alice!
+                          Hello Bob!
+                          Hello Charlie!
+                          "
+      (doseq [x ["Alice" "Bob" "Charlie"]]
+        (println (str "Hello " x "!"))))))
