@@ -1,7 +1,8 @@
 (ns clj-toolbox.streams
   (:import
     [java.io PipedInputStream
-             PipedOutputStream]))
+             PipedOutputStream
+             OutputStreamWriter]))
 
 (defn string->stream
   [s]
@@ -18,3 +19,9 @@
   (let [in-stream (PipedInputStream.)
         out-stream (PipedOutputStream. in-stream)]
     [in-stream out-stream]))
+
+(defmacro with-out-stream
+  [s & body]
+  `(with-open [s# (OutputStreamWriter. ~s)]
+     (binding [*out* s#]
+        ~@body)))

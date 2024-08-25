@@ -12,7 +12,8 @@
   "/bin" "bin"
   "/usr/bin/env" "env"
   "foo/bar/baz.conf" "baz.conf"
-  "/etc/nixos/configuration.nix" "configuration.nix")
+  "/etc/nixos/configuration.nix" "configuration.nix"
+  "baz2.conf" "baz2.conf")
 
 (defntest-1 path->ext
   "/bin/blah.txt" "txt"
@@ -57,7 +58,7 @@
 (deftest file-mkdir-test
   (testing 'file-mkdir
     (let [dir (create-temp-dir)
-          test-dir (str/join "/" [dir "test"])]
+          test-dir (abs-path-join dir "test")]
       (is (true? (dir-exists? dir)))
       (is (false? (dir-exists? test-dir)))
       (file-mkdir test-dir)

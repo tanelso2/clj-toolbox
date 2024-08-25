@@ -9,7 +9,7 @@
 
 (deftest conversion-test
   (testing "There and back again"
-    (is (= test-val 
+    (is (= test-val
            (-> test-val
                string->stream
                stream->string))))
@@ -25,3 +25,13 @@
         (.write writer test-val))
       (is (= test-val
              (stream->string in-stream))))))
+
+(deftest with-out-stream-test
+  (testing 'with-out-stream
+    (let [[istream ostream] (make-paired-streams)]
+      (with-out-stream ostream
+        (println "Hello")
+        (println "Hmm")
+        (println "I've forgotten your name"))
+      (is (= "Hello\nHmm\nI've forgotten your name\n"
+             (stream->string istream))))))
