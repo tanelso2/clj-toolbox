@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 * Add streams/with-out-stream
+* Add base64/encode-str
 
 ## [0.8.2] — 2024-08-24
 * Fix string-tools/box-trim throwing exceptions when some lines are bigger than others
