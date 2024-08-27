@@ -48,4 +48,7 @@
     o
                s
   "
-  "       s\no\n           s")
+  "       s\no\n           s"
+  ; Empty string -> empty string
+  ""
+  "")
