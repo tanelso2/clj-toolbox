@@ -1,6 +1,9 @@
 (ns clj-toolbox.streams-test
   (:require
     [clojure.test :refer :all]
+    [clojure.test.check.generators :as gen]
+    [clojure.test.check.properties :as prop]
+    [clojure.test.check.clojure-test :refer [defspec]]
     [clj-toolbox.streams :refer :all]
     [clj-toolbox.test-utils :refer :all]
     [clojure.java.io :as io]))
@@ -17,6 +20,10 @@
     (let [stream (string->stream test-val)]
       (is (instance? java.io.InputStream stream))
       (is (not= stream test-val)))))
+
+(defspec string-to-stream-and-back 100
+  (prop/for-all [s gen/string]
+    (= s (-> s string->stream stream->string))))
 
 (deftest paired-streams-test
   (testing 'paired-streams
