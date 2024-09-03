@@ -34,7 +34,7 @@
    (loop-in-background-thread! f sleep-seconds 0))
   ([f sleep-seconds sleep-millis]
    (let [sleep-time (+ (* sleep-seconds 1000) sleep-millis)
-          continue? (atom true)   
+          continue? (atom true)
           stop!-fn  (fn []  (reset! continue? false))]
       (go-loop []
         (if @continue?
