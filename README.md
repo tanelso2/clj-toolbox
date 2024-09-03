@@ -6,7 +6,7 @@
 A collection of clojure functions I would like to reuse in other projects.
 
 ```clj
-[clj-toolbox "0.8.2"]
+[clj-toolbox "0.8.3"]
 ```
 
 ## License
