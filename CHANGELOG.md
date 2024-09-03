@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+* Add property tests using clojure.test.check for streams and base64
+* Add base64/decode-str
 
 ## [0.8.3] — 2024-09-02
 * Add streams/with-out-stream

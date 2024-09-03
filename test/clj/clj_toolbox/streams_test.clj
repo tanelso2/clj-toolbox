@@ -21,7 +21,7 @@
       (is (instance? java.io.InputStream stream))
       (is (not= stream test-val)))))
 
-(defspec string-to-stream-and-back 100
+(defspec string-to-stream-and-back 200
   (prop/for-all [s gen/string]
     (= s (-> s string->stream stream->string))))
 
