@@ -3,7 +3,7 @@
     [clojure.test :refer :all]
     [clojure.test.check.generators :as gen]
     [clojure.test.check.properties :as prop]
-    [clojure.test.check.clojure-test :refer [defspec]]
+    [com.gfredericks.test.chuck.clojure-test :refer [checking]]
     [clj-toolbox.streams :refer :all]
     [clj-toolbox.test-utils :refer :all]
     [clojure.java.io :as io]))
@@ -16,14 +16,15 @@
            (-> test-val
                string->stream
                stream->string))))
+  (checking "There and back again - qc" 200
+    [s gen/string]
+    (is (= s (-> s
+                 string->stream
+                 stream->string))))
   (testing "stream objects"
     (let [stream (string->stream test-val)]
       (is (instance? java.io.InputStream stream))
       (is (not= stream test-val)))))
-
-(defspec string-to-stream-and-back 200
-  (prop/for-all [s gen/string]
-    (= s (-> s string->stream stream->string))))
 
 (deftest paired-streams-test
   (testing 'paired-streams
@@ -31,6 +32,13 @@
       (with-open [writer (io/writer out-stream)]
         (.write writer test-val))
       (is (= test-val
+             (stream->string in-stream)))))
+  (checking "paired-streams - qc" 200
+    [s gen/string]
+    (let [[in-stream out-stream] (make-paired-streams)]
+      (with-open [writer (io/writer out-stream)]
+        (.write writer s))
+      (is (= s
              (stream->string in-stream))))))
 
 (deftest with-out-stream-test

@@ -3,7 +3,7 @@
     [clojure.test :refer :all]
     [clojure.test.check.generators :as gen]
     [clojure.test.check.properties :as prop]
-    [clojure.test.check.clojure-test :refer [defspec]]
+    [com.gfredericks.test.chuck.clojure-test :refer [checking]]
     [clj-toolbox.test-utils :refer :all]
     [clj-toolbox.base64 :refer :all]))
 
@@ -16,8 +16,9 @@
   "" ""
   "aGVsbG8=" "hello")
 
-(defspec base64-encode-decode 200
-  (prop/for-all [s gen/string]
-    (= s (-> s
-             encode-str
-             decode-str))))
+(deftest base64-encode-decode
+  (checking "encode-decode-same" 200
+    [s gen/string]
+    (is (= s (-> s
+                 encode-str
+                 decode-str)))))
