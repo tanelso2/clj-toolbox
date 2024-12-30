@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+
+## [0.9.0] — 2024-12-30
 * Add property tests using clojure.test.check for streams and base64
 * Add base64/decode-str
 * Deprecated files/[file-mkdir, file-mkdirs, file-last-modified]
@@ -66,4 +68,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [0.8.1]: https://github.com/tanelso2/clj-toolbox/compare/0.8.0...0.8.1
 [0.8.2]: https://github.com/tanelso2/clj-toolbox/compare/0.8.1...0.8.2
 [0.8.3]: https://github.com/tanelso2/clj-toolbox/compare/0.8.2...0.8.3
-[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.8.3...HEAD
+[0.9.0]: https://github.com/tanelso2/clj-toolbox/compare/0.8.3...0.9.0
+[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.9.0...HEAD
