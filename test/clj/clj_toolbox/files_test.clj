@@ -125,6 +125,7 @@
     (let [f (create-temp-file)]
       (spit f "abc123")
       (let [modified-time-1 (files/last-modified f)]
+        (Thread/sleep 10)
         (spit f "xyz987")
         (let [modified-time-2 (files/last-modified f)]
           ;; Should this be >= ? We'll see if it ever breaks
