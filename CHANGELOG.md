@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 * Add property tests using clojure.test.check for streams and base64
 * Add base64/decode-str
+* Deprecated files/[file-mkdir, file-mkdirs, file-last-modified]
+* Added files/[mkdir, mkdirs, last-modified, f+, f!+, abs-path, path->dirname]
 
 ## [0.8.3] — 2024-09-02
 * Add streams/with-out-stream

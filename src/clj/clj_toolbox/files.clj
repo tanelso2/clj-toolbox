@@ -19,6 +19,9 @@
   (.toString (Files/createTempFile prefix suffix
               (into-array java.nio.file.attribute.FileAttribute []))))
 
+(def temp-dir create-temp-dir)
+(def temp-file create-temp-file)
+
 (defn file-exists?
   [filename]
   (let [f (io/file filename)]
@@ -33,16 +36,30 @@
          (.isDirectory f)
          (.exists f))))
 
-(defn file-last-modified
+(defn ^:deprecated file-last-modified
   [filename]
   (.lastModified (io/file filename)))
 
-(defn file-mkdir
+(defn last-modified
+  [filename]
+  (.lastModified (io/file filename)))
+
+(defn ^:deprecated file-mkdir
   "Equivalent to mkdir <filename>"
   [filename]
   (.mkdir (io/file filename)))
 
-(defn file-mkdirs
+(defn ^:deprecated file-mkdirs
+  "Equivalent to mkdir -p <filename>"
+  [filename]
+  (.mkdirs (io/file filename)))
+
+(defn mkdir
+  "Equivalent to mkdir <filename>"
+  [filename]
+  (.mkdir (io/file filename)))
+
+(defn mkdirs
   "Equivalent to mkdir -p <filename>"
   [filename]
   (.mkdirs (io/file filename)))
@@ -55,6 +72,15 @@
     (if (nil? i)
       path
       (subs path (inc i)))))
+
+(defn path->dirname
+  "Gets the dirname from a path
+   Assumes unix-style paths e.g. foo/bar/baz.conf"
+  [path]
+  (let [i (str/last-index-of path \/)]
+    (if (nil? i)
+      ""
+      (subs path 0 (inc i)))))
 
 (defn path->ext
   "Gets the extension from a path"
@@ -86,6 +112,17 @@
   (->> paths
        (apply io/file)
        (.getAbsolutePath)))
+
+(defn abs-path
+  "Returns a string representing the absolute path of the given path"
+  [path]
+  (-> path
+      (io/file)
+      (.getAbsolutePath)))
+
+(def f+ path-join)
+
+(def f!+ abs-path-join)
 
 (defn read-all
  "

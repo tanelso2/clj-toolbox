@@ -1,6 +1,6 @@
 (ns clj-toolbox.files-test
   (:require [clojure.test :refer :all]
-            [clj-toolbox.files :refer :all]
+            [clj-toolbox.files :as files :refer :all]
             [clj-toolbox.test-utils :refer :all]
             [clojure.string :as str])
   (:import
@@ -21,6 +21,14 @@
   "/bin/bash" ""
   "app.py" "py")
 
+(defntest-1 path->dirname
+  "/bin/bash" "/bin/"
+  "/bin" "/"
+  "/usr/bin/env" "/usr/bin/"
+  "foo/bar/baz.conf" "foo/bar/"
+  "/etc/nixos/configuration.nix" "/etc/nixos/"
+  "baz2.conf" "") 
+
 (defntest-1 strip-ext
   "/bin/blah.txt" "/bin/blah"
   "/usr/nginx/nginx.conf" "/usr/nginx/nginx"
@@ -30,47 +38,47 @@
 (deftest file-exists?-test
   (testing 'file-exists?
     (let [dir (create-temp-dir)
-          test-path (str/join "/" [dir "test"])]
+          test-path (files/f+ dir "test")]
       (is (false? (file-exists? test-path)))
       (spit test-path "hello")
       (is (true? (file-exists? test-path)))))
   (testing 'file-exists?-false-on-dirs
     (let [dir (create-temp-dir)
-          test-path (str/join "/" [dir "test"])]
+          test-path (files/f+ dir "test")]
       (is (false? (file-exists? test-path)))
-      (file-mkdirs test-path)
+      (mkdirs test-path)
       (is (false? (file-exists? test-path))))))
 
 (deftest dir-exists?-test
   (testing 'dir-exists?
     (let [dir (create-temp-dir)
-          test-path (str/join "/" [dir "test"])]
+          test-path (files/f+ dir "test")]
       (is (false? (dir-exists? test-path)))
-      (file-mkdirs test-path)
+      (mkdirs test-path)
       (is (true? (dir-exists? test-path)))))
   (testing 'dir-exists?-false-on-files
     (let [dir (create-temp-dir)
-          test-path (str/join "/" [dir "test"])]
+          test-path (files/f+ dir "test")]
       (is (false? (dir-exists? test-path)))
       (spit test-path "Hello")
       (is (false? (dir-exists? test-path))))))
 
-(deftest file-mkdir-test
-  (testing 'file-mkdir
+(deftest mkdir-test
+  (testing 'mkdir
     (let [dir (create-temp-dir)
           test-dir (abs-path-join dir "test")]
       (is (true? (dir-exists? dir)))
       (is (false? (dir-exists? test-dir)))
-      (file-mkdir test-dir)
+      (mkdir test-dir)
       (is (true? (dir-exists? test-dir))))))
 
-(deftest file-mkdirs-test
-  (testing 'file-mkdirs
+(deftest mkdirs-test
+  (testing 'mkdirs
     (let [dir (create-temp-dir)
           test-dir (str/join "/" [dir "test" "long" "path"])]
       (is (true? (dir-exists? dir)))
       (is (false? (dir-exists? test-dir)))
-      (file-mkdirs test-dir)
+      (mkdirs test-dir)
       (is (true? (dir-exists? test-dir))))))
 
 (deftest read-all-test
@@ -103,3 +111,21 @@
       (is (empty? (slurp f)))
       (spit f "Hello world") ; Check is writable
       (is (not (empty? (slurp f)))))))
+
+(deftest abs-path-test
+  (testing 'abs-path
+    (let [p "project.clj"]
+      (is (file-exists? p))
+      (let [ap (abs-path p)]
+        (is (> (count ap) (count p)))
+        (is (str/includes? ap p))))))
+
+(deftest last-modified-test
+  (testing 'last-modified
+    (let [f (create-temp-file)]
+      (spit f "abc123")
+      (let [modified-time-1 (files/last-modified f)]
+        (spit f "xyz987")
+        (let [modified-time-2 (files/last-modified f)]
+          ;; Should this be >= ? We'll see if it ever breaks
+          (is (> modified-time-2 modified-time-1)))))))
