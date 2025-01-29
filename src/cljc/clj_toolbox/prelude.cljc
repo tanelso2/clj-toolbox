@@ -18,6 +18,14 @@
      (memoize
        (fn ~@fndef))))
 
+(defn ^{:see-also clojure.core/empty?}
+  not-empty?
+  "
+    Returns true if x is not empty, else false.
+  "
+  [x]
+  (boolean (seq x)))
+
 (defn ^{:see-also clojure.core/not-any?}
   any-in?
   "

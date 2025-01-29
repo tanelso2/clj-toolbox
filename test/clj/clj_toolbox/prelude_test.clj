@@ -12,8 +12,16 @@
   [second [[:a 1] [:b 1]]] 2
   [inc [0 1 2]] 6)
 
+(defntest-1 not-empty?
+  [1 2 3] true
+  [] false
+  {:a 1} true
+  {} false
+  "abc" true
+  "" false)
+
 (defntest any-in?
-  [#(= 2 %) [1 2 3]] true
+    [#(= 2 %) [1 2 3]] true
   [#(= 4 %) [1 2 3]] false)
 
 (defntest find-first
