@@ -3,24 +3,31 @@
     [clojure.java.io :as io]
     [clojure.string :as str])
   (:import
-    [java.io File]
+    [java.io FileNotFoundException]
     [java.nio.file Files]))
 
-(defn create-temp-dir
+(defn temp-dir
+  "
+   Creates a new temporary direction with optional prefix
+  "
   [& {:keys [prefix]
       :or {prefix ""}}]
   (.toString (Files/createTempDirectory prefix
                (into-array java.nio.file.attribute.FileAttribute []))))
 
-(defn create-temp-file
+(defn temp-file
+  "
+   Creates a new temporary file with optional prefix and suffix
+  "
   [& {:keys [prefix suffix]
       :or {prefix ""
            suffix ""}}]
   (.toString (Files/createTempFile prefix suffix
               (into-array java.nio.file.attribute.FileAttribute []))))
 
-(def temp-dir create-temp-dir)
-(def temp-file create-temp-file)
+(def ^:deprecated create-temp-dir temp-dir)
+
+(def ^:deprecated create-temp-file temp-file)
 
 (defn file-exists?
   [filename]
@@ -43,6 +50,31 @@
 (defn last-modified
   [filename]
   (.lastModified (io/file filename)))
+
+(defn size
+  "
+   Returns the size of the file or nil if the file does not exist
+  "
+  [path]
+  (let [f (io/file path)]
+    (if (or (nil? f)
+            (not (.exists f)))
+      nil
+      (.length f))))
+
+(defn children
+  "
+   Returns the paths of the children of the given path as a vector of strings
+   If path is not an existing directory, this function throws a FileNotFoundException
+  "
+  [path]
+  (when (not (dir-exists? path))
+    (throw (FileNotFoundException. (format "%s does not exist or is not a directory, cannot get children" path))))
+  (let [f (io/file path)]
+    (->> f
+         (.listFiles)
+         (seq)
+         (mapv #(.getPath %)))))
 
 (defn ^:deprecated file-mkdir
   "Equivalent to mkdir <filename>"

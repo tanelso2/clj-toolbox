@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 * Add clj-toolbox.prelude/not-empty?
+* Add files/size and files/children
 
 ## [0.9.0] — 2024-12-30
 * Add property tests using clojure.test.check for streams and base64

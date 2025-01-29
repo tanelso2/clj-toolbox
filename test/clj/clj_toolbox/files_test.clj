@@ -1,11 +1,14 @@
 (ns clj-toolbox.files-test
-  (:require [clojure.test :refer :all]
-            [clj-toolbox.files :as files :refer :all]
-            [clj-toolbox.test-utils :refer :all]
-            [clojure.string :as str])
+  (:require
+    [clojure.test :refer :all]
+    [clj-toolbox.files :as files :refer :all]
+    [clj-toolbox.test-utils :refer :all]
+    [clojure.string :as str]
+    [clj-toolbox.prelude :refer [not-empty?]]
+    [clojure.test.check.generators :as gen]
+    [com.gfredericks.test.chuck.clojure-test :refer [checking]])
   (:import
-    [java.io File]
-    [java.nio.file Files]))
+    [java.io FileNotFoundException]))
 
 (defntest-1 path->filename
   "/bin/bash" "bash"
@@ -27,7 +30,7 @@
   "/usr/bin/env" "/usr/bin/"
   "foo/bar/baz.conf" "foo/bar/"
   "/etc/nixos/configuration.nix" "/etc/nixos/"
-  "baz2.conf" "") 
+  "baz2.conf" "")
 
 (defntest-1 strip-ext
   "/bin/blah.txt" "/bin/blah"
@@ -37,13 +40,13 @@
 
 (deftest file-exists?-test
   (testing 'file-exists?
-    (let [dir (create-temp-dir)
+    (let [dir (temp-dir)
           test-path (files/f+ dir "test")]
       (is (false? (file-exists? test-path)))
       (spit test-path "hello")
       (is (true? (file-exists? test-path)))))
   (testing 'file-exists?-false-on-dirs
-    (let [dir (create-temp-dir)
+    (let [dir (temp-dir)
           test-path (files/f+ dir "test")]
       (is (false? (file-exists? test-path)))
       (mkdirs test-path)
@@ -51,13 +54,13 @@
 
 (deftest dir-exists?-test
   (testing 'dir-exists?
-    (let [dir (create-temp-dir)
+    (let [dir (temp-dir)
           test-path (files/f+ dir "test")]
       (is (false? (dir-exists? test-path)))
       (mkdirs test-path)
       (is (true? (dir-exists? test-path)))))
   (testing 'dir-exists?-false-on-files
-    (let [dir (create-temp-dir)
+    (let [dir (temp-dir)
           test-path (files/f+ dir "test")]
       (is (false? (dir-exists? test-path)))
       (spit test-path "Hello")
@@ -65,7 +68,7 @@
 
 (deftest mkdir-test
   (testing 'mkdir
-    (let [dir (create-temp-dir)
+    (let [dir (temp-dir)
           test-dir (abs-path-join dir "test")]
       (is (true? (dir-exists? dir)))
       (is (false? (dir-exists? test-dir)))
@@ -74,7 +77,7 @@
 
 (deftest mkdirs-test
   (testing 'mkdirs
-    (let [dir (create-temp-dir)
+    (let [dir (temp-dir)
           test-dir (str/join "/" [dir "test" "long" "path"])]
       (is (true? (dir-exists? dir)))
       (is (false? (dir-exists? test-dir)))
@@ -83,7 +86,7 @@
 
 (deftest read-all-test
   (testing 'read-all
-    (let [dir (create-temp-dir)
+    (let [dir (temp-dir)
           test-file (path-join dir "test.clj")]
       (spit test-file "
             (abc 123)
@@ -106,11 +109,11 @@
 
 (deftest temp-file-test
   (testing 'create-temp-file
-    (let [f (create-temp-file)]
+    (let [f (temp-file)]
       (is (file-exists? f))
       (is (empty? (slurp f)))
       (spit f "Hello world") ; Check is writable
-      (is (not (empty? (slurp f)))))))
+      (is (not-empty? (slurp f))))))
 
 (deftest abs-path-test
   (testing 'abs-path
@@ -122,7 +125,7 @@
 
 (deftest last-modified-test
   (testing 'last-modified
-    (let [f (create-temp-file)]
+    (let [f (temp-file)]
       (spit f "abc123")
       (let [modified-time-1 (files/last-modified f)]
         (Thread/sleep 10)
@@ -130,3 +133,37 @@
         (let [modified-time-2 (files/last-modified f)]
           ;; Should this be >= ? We'll see if it ever breaks
           (is (> modified-time-2 modified-time-1)))))))
+
+(deftest size-test
+  (testing 'size
+    (let [f (files/temp-file)]
+      (spit f "abc")
+      (is (= 3 (size f)))
+      (spit f "abc123")
+      (is (= 6 (size f)))))
+  (checking "size-matches-input-string" 200
+    [s gen/string-alphanumeric]
+    (let [f (temp-file)]
+       (spit f s)
+       (is (= (count s) (size f)))))
+  (testing 'size-does-not-exist
+    (let [f "does-not-exist!!!"]
+      (is (nil? (size f))))))
+
+(deftest children-test
+  (testing 'children
+    (let [d (files/temp-dir)
+          a (files/f!+ d "a")
+          b (files/f!+ d "b")]
+      (spit a "Hello")
+      (spit b "World")
+      (let [c (children d)]
+        (is (= 2 (count c)))
+        (is (some (partial = a) c))
+        (is (some (partial = b) c)))))
+  (testing 'children-does-not-exist
+    (let [f "does-not-exist"]
+      (is (thrown? FileNotFoundException (children f)))))
+  (testing 'children-throws-on-file
+    (let [f (files/temp-file)]
+      (is (thrown? FileNotFoundException (children f))))))
