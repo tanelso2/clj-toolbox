@@ -5,7 +5,7 @@
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/core.async "1.6.681"]
                  [org.clojure/data.json "2.3.1"]]
-  :plugins [[lein-cloverage "1.2.2"]
+  :plugins [[lein-cloverage "1.2.4"]
             [lein-shell "0.5.0"]
             [lein-ancient "0.6.15"]
             [lein-changelog "0.3.2"]]
