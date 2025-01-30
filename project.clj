@@ -11,7 +11,8 @@
             [lein-changelog "0.3.2"]]
   :profiles {:dev {:dependencies [[org.clojure/clojure "1.11.4"]
                                   [org.clojure/test.check "1.1.1"]
-                                  [com.gfredericks/test.chuck "0.2.13"]]}}
+                                  [com.gfredericks/test.chuck "0.2.13"]
+                                  [clj-http "3.12.2"]]}}
   :deploy-repositories [["releases" {:url "https://repo.clojars.org"
                                      :sign-releases false
                                      :username :env/clojars_username
