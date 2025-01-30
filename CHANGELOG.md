@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+
+## [0.10.1] — 2025-01-29
 * Add clj-http to dependencies
 
 ## [0.10.0] — 2025-01-29
@@ -80,4 +82,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [0.8.3]: https://github.com/tanelso2/clj-toolbox/compare/0.8.2...0.8.3
 [0.9.0]: https://github.com/tanelso2/clj-toolbox/compare/0.8.3...0.9.0
 [0.10.0]: https://github.com/tanelso2/clj-toolbox/compare/0.9.0...0.10.0
-[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.10.0...HEAD
+[0.10.1]: https://github.com/tanelso2/clj-toolbox/compare/0.10.0...0.10.1
+[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.10.1...HEAD
