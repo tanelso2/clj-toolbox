@@ -1,7 +1,7 @@
-(ns clj-toolbox.string-tools-test
+(ns clj-toolbox.strings-test
   (:require
     [clojure.test :refer :all]
-    [clj-toolbox.string-tools :refer :all]
+    [clj-toolbox.strings :refer :all]
     [clj-toolbox.test-utils :refer :all]))
 
 (defntest-1 box-trim
@@ -53,3 +53,9 @@
   ""
   "")
 
+(defntest-1 split-whitespace
+  "a" ["a"]
+  "a bc def" ["a" "bc" "def"]
+  "1
+   2
+   3" ["1" "2" "3"])
