@@ -11,7 +11,7 @@ A collection of clojure functions I would like to reuse in other projects.
 
 ## License
 
-Copyright © 2024 Thomas Nelson
+Copyright © 2025 Thomas Nelson
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
