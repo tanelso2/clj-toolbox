@@ -22,6 +22,8 @@
   not-empty?
   "
     Returns true if x is not empty, else false.
+
+    Exists because doing (not (empty? x)) is inefficient
   "
   [x]
   (boolean (seq x)))
@@ -46,10 +48,20 @@
                   nil))
         coll))
 
-(defn derefable?
-  "Returns true if x is an instance of clojure.langIDeref"
-  [x]
-  (instance? clojure.lang.IDeref x))
+#?(:clj
+   (do
+    (defn derefable?
+      "Returns true if x is an instance of clojure.langIDeref"
+      [x]
+      (instance? clojure.lang.IDeref x))
+
+    (defn unlazy
+      "Unwraps x if it is a clojure.lang.IDeref.
+       Otherwise just returns x"
+      [x]
+      (if (derefable? x)
+        @x
+        x))))
 
 (defn into-map
   "
@@ -119,7 +131,7 @@
 
 #?(:clj
     (defn ^{:see-also clojure.core/partition}
-      strict-partition 
+      strict-partition
       "
         Like parition, but throws an exception if the number of elements in coll
         are not evenly divisible by n, instead of partition's behavior of having
@@ -142,3 +154,8 @@
   (->> coll
        (drop start)
        (take (- end start))))
+
+(defn re-has?
+  "Tests whether re matches any part of s. Returns a boolean"
+  [re s]
+  (not-empty? (re-seq re s)))

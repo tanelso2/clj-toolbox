@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+* Add clj-toolbox.prelude/re-has?
+* Add clj-toolbox.prelude/unlazy
 
 ## [0.10.1] — 2025-01-29
 * Add clj-http to dependencies

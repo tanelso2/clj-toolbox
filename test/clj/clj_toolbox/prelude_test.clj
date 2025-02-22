@@ -72,6 +72,15 @@
   (atom 1) true
   (future 1) true)
 
+(defntest-1 unlazy
+  1 1
+  :x :x
+  {} {}
+  + +
+  (atom 1) 1
+  (future 1) 1
+  (delay ::unlazy) ::unlazy)
+
 (defntest into-map
   ;; kf, vf and coll provided
   [:id :val [{:id  :a
@@ -121,3 +130,12 @@
   (testing 'take-range-zero-to-length
     (let [v [1 2 3]]
       (is (= v (take-range 0 (count v) v))))))
+
+(defntest re-has?
+  [#"xkcd" "abcdefxkcd"] true
+  [#"xkcd" "abcdef"] false
+  [#"\d+" "abcdef"] false
+  [#"\d+" "123456"] true 
+  [#"^[abc]+$" "aaabbbbcccc"] true
+  [#"^[abc]+$" "aaabbbbdddd"] false 
+  [#"[abc]+" "aaabbbbdddd"] true) 
