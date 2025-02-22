@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+
+## [0.11.0] — 2025-02-22
 * Add clj-toolbox.prelude/re-has?
 * Add clj-toolbox.prelude/unlazy
 
@@ -85,4 +87,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [0.9.0]: https://github.com/tanelso2/clj-toolbox/compare/0.8.3...0.9.0
 [0.10.0]: https://github.com/tanelso2/clj-toolbox/compare/0.9.0...0.10.0
 [0.10.1]: https://github.com/tanelso2/clj-toolbox/compare/0.10.0...0.10.1
-[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.10.1...HEAD
+[0.11.0]: https://github.com/tanelso2/clj-toolbox/compare/0.10.1...0.11.0
+[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.11.0...HEAD
