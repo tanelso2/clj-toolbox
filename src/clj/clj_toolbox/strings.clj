@@ -31,9 +31,12 @@
                              (take (+ 1 (- @last-line @first-line))))]
         (str/join "\n"
           (for [v valid-lines]
-            (let [end (min (inc @right-bound)
-                           (count v))]
-              (subs v @left-bound end))))))))
+            (let [len (count v)
+                  start (min @left-bound
+                             len)
+                  end (min (inc @right-bound)
+                           len)]
+              (subs v start end))))))))
 
 (defn split-whitespace
   [s]

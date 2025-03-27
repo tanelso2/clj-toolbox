@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+* Fix exception thrown when clj-toolbox.strings/box-trim input has empty lines
 
 ## [0.11.0] — 2025-02-22
 * Add clj-toolbox.prelude/re-has?

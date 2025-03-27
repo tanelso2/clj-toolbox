@@ -49,6 +49,21 @@
                s
   "
   "       s\no\n           s"
+  ; Empty lines in the middle 
+  "
+   server {
+     listen %d;
+     listen [::]:%d;
+
+     server_name %s;
+
+     location / {
+       proxy_pass http://%s:%d/;
+       proxy_set_header Host $host;
+     }
+   }
+  "
+  "server {\n  listen %d;\n  listen [::]:%d;\n\n  server_name %s;\n\n  location / {\n    proxy_pass http://%s:%d/;\n    proxy_set_header Host $host;\n  }\n}"
   ; Empty string -> empty string
   ""
   "")
