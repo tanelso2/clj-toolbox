@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+
+## [0.11.1] — 2025-03-27
 * Fix exception thrown when clj-toolbox.strings/box-trim input has empty lines
 
 ## [0.11.0] — 2025-02-22
@@ -89,4 +91,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [0.10.0]: https://github.com/tanelso2/clj-toolbox/compare/0.9.0...0.10.0
 [0.10.1]: https://github.com/tanelso2/clj-toolbox/compare/0.10.0...0.10.1
 [0.11.0]: https://github.com/tanelso2/clj-toolbox/compare/0.10.1...0.11.0
-[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.11.0...HEAD
+[0.11.1]: https://github.com/tanelso2/clj-toolbox/compare/0.11.0...0.11.1
+[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.11.1...HEAD
