@@ -33,6 +33,15 @@
   :aliases {"bump-version" ["change" "version" "leiningen.release/bump-version"]
             "flow" ["with-profile" "+flow-storm" "repl"]
             "gen-docs" ["with-profile" "+docs" "html5-docs"]
+            "gen-site" [["do"
+                         "clean,"
+                         "gen-docs,"
+                         "cloverage,"
+                         "shell" "mkdir" "target/site,"
+                         "shell" "cp" "-r" "resources/site" "target/,"
+                         "shell" "cp" "-r" "target/coverage" "target/site/coverage,"
+                         "shell" "cp" "-r" "target/docs" "target/site/docs,"
+                         "shell" "tree" "target/site"]]
             "update-readme-version" ["shell" "sed" "-i" "s/\\\\[clj-toolbox \"[0-9.]*\"\\\\]/[clj-toolbox \"${:version}\"]/" "README.md"]}
   :release-tasks [["vcs" "assert-committed"]
                   ; TODO:
