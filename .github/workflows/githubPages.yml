@@ -32,7 +32,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
       - run: lein gen-site
-      - run: mkdir ./_site
       - run: cp -r target/site ./_site
       - run: tree ./_site
       - name: Setup Pages
