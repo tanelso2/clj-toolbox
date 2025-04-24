@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+
+## [1.0.0] — 2025-04-23
 * Fully remove clj-toolbox.string-tools
 * Add clj-toolbox.maths/square
 * Add clj-toolbox.maths/exp-or-throw!
@@ -98,4 +100,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [0.10.1]: https://github.com/tanelso2/clj-toolbox/compare/0.10.0...0.10.1
 [0.11.0]: https://github.com/tanelso2/clj-toolbox/compare/0.10.1...0.11.0
 [0.11.1]: https://github.com/tanelso2/clj-toolbox/compare/0.11.0...0.11.1
-[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/0.11.1...HEAD
+[1.0.0]: https://github.com/tanelso2/clj-toolbox/compare/0.11.1...1.0.0
+[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/1.0.0...HEAD
