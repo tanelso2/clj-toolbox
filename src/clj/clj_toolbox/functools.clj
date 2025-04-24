@@ -73,3 +73,21 @@
            (recur next-token next-acc)
            next-acc)))]
     (helper nil nil)))
+
+(defn inverse
+  "
+  Returns a function that returns the additive inverse (negative) of what the input function would return
+
+  Example:
+  ((inverse (constantly 2)))
+  => -2
+  "
+  [f]
+  (comp - f))
+
+(defn mul-inverse
+  "
+  Returns a function that returns the multiplicative inverse (1.0/x) of what the input function would return
+  "
+  [f]
+  (comp #(/ 1.0 %) f))

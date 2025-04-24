@@ -93,3 +93,35 @@
       (record-val :end2)
       (is (= (get-val :end)
              (get-val :end2))))))
+
+(deftest inverse-test
+  (testing 'constantly
+    (let [f (constantly 2)
+          invf (inverse f) 
+          check (fn [& args] (is (= 0 (+ (apply f args)
+                                         (apply invf args)))))]
+      (check)
+      (is (= -2 (invf)))))
+      
+  (testing '+
+    (let [f +
+          invf (inverse f)
+          check (fn [& args] (is (= 0 (+ (apply f args)
+                                         (apply invf args)))))]
+      (is (= -2 (invf 1 1)))
+      (is (= 10 (invf -5 -5)))
+      (is (= 4  (invf -10 6)))
+      (is (= 0  (invf -1 1)))
+      (check 2 2)
+      (check 1 2 3)
+      (check -1 -2 3 -4))))
+  ;; TODO: Checking test that (= 0 (+ (f x) ((inverse f) x)))
+
+(deftest mul-inverse-test
+  (testing 'constantly
+    (let [f (constantly 2)
+          invf (mul-inverse f)
+          check (fn [& args] (is (= 1.0 (* (apply f args)
+                                           (apply invf args)))))]
+      (check)
+      (is (= 0.5 (invf))))))

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+* Add clj-toolbox.maths/square
+* Add clj-toolbox.maths/exp-or-throw!
+* Add clj-toolbox.functools/inverse and mul-inverse
+* Add clj-toolbox.walks/walk-with
+* Add clj-toolbox.walks/format-doubles
 
 ## [0.11.1] — 2025-03-27
 * Fix exception thrown when clj-toolbox.strings/box-trim input has empty lines
