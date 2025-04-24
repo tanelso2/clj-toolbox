@@ -1,7 +1,7 @@
 (ns clj-toolbox.test-utils
   (:require [clojure.test :refer :all]
             [clj-toolbox.prelude :refer [strict-partition]]
-            [clj-toolbox.string-tools :refer [box-trim]]))
+            [clj-toolbox.strings :refer [box-trim]]))
 
 (defmacro make-test-body
   [expected f input]
