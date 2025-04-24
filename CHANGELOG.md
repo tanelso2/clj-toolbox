@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+* Fully remove clj-toolbox.string-tools
 * Add clj-toolbox.maths/square
 * Add clj-toolbox.maths/exp-or-throw!
 * Add clj-toolbox.functools/inverse and mul-inverse
