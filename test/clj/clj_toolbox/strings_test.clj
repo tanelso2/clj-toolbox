@@ -74,3 +74,12 @@
   "1
    2
    3" ["1" "2" "3"])
+
+(defntest re-has?
+  [#"xkcd" "abcdefxkcd"] true
+  [#"xkcd" "abcdef"] false
+  [#"\d+" "abcdef"] false
+  [#"\d+" "123456"] true 
+  [#"^[abc]+$" "aaabbbbcccc"] true
+  [#"^[abc]+$" "aaabbbbdddd"] false 
+  [#"[abc]+" "aaabbbbdddd"] true) 

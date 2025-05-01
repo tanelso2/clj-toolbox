@@ -125,3 +125,34 @@
                                            (apply invf args)))))]
       (check)
       (is (= 0.5 (invf))))))
+
+(defonce fibonacci-calls (atom []))
+(defonce fibonacci-max-input (atom -1))
+
+(defnmem fibonacci [x]
+  (swap! fibonacci-calls conj x)
+  (swap! fibonacci-max-input max x)
+  (if (or (= 0 x)
+          (= 1 x))
+    1
+    (+ (fibonacci (- x 1))
+       (fibonacci (- x 2)))))
+
+(deftest defnmem-test
+  (testing 'defnmem
+    (is (= 2
+           (fibonacci 2)))
+    (is (= 3
+           (fibonacci 3)))
+    (is (= 5
+           (fibonacci 4)))
+    (is (= 21
+           (fibonacci 7)))
+    ; A call of (fibonacci max-input)
+    ; should require calling fibonacci for all 0..max-input
+    ; Since this is memoized, each one should only be called once
+    (is (= (+ 1 @fibonacci-max-input)
+           (count @fibonacci-calls)))
+    ; Make sure there are no repeats since it should be memoizing everything
+    (is (apply distinct? @fibonacci-calls))))
+

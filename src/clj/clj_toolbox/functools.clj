@@ -1,4 +1,5 @@
 (ns clj-toolbox.functools
+  "Functions for manipulating functions and producing other functions"
   (:require
     [clojure.core.async :as a :refer [go-loop timeout <!]]))
 
@@ -91,3 +92,20 @@
   "
   [f]
   (comp #(/ 1.0 %) f))
+
+(defmacro defnmem
+  "
+    Defines a memoized function
+     Examples:
+      (defnmem fibonacci [x]
+        (if (or (= 0 x)
+                (= 1 x))
+          1
+          (+ (fibonacci (- x 1))
+             (fibonacci (- x 2)))))
+  "
+  [name & fndef]
+  `(def ~name
+     (memoize
+       (fn ~@fndef))))
+

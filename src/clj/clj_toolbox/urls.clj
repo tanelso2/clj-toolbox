@@ -1,4 +1,5 @@
 (ns clj-toolbox.urls
+  "Functions for working with URLs"
   (:require
     [clj-http.client :as http]
     [clojure.string :as str])

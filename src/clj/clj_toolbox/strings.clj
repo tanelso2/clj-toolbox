@@ -1,6 +1,13 @@
 (ns clj-toolbox.strings
+  "
+  Functions for working with strings.
+
+  Note: This should not include parsing functions, those should go in modules related to what they are parsing from the string
+  "
+  
   (:require
-    [clojure.string :as str]))
+    [clojure.string :as str]
+    [clj-toolbox.colls :refer [not-empty?]]))
 
 (defn box-trim
   [s]
@@ -41,3 +48,8 @@
 (defn split-whitespace
   [s]
   (str/split s #"\s+"))
+
+(defn re-has?
+  "Tests whether re matches any part of s. Returns a boolean"
+  [re s]
+  (not-empty? (re-seq re s)))

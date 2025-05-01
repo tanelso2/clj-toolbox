@@ -1,4 +1,5 @@
 (ns clj-toolbox.files
+  "Functions for manipulating files"
   (:require
     [clojure.java.io :as io]
     [clojure.string :as str])
@@ -25,10 +26,6 @@
   (.toString (Files/createTempFile prefix suffix
               (into-array java.nio.file.attribute.FileAttribute []))))
 
-(def ^:deprecated create-temp-dir temp-dir)
-
-(def ^:deprecated create-temp-file temp-file)
-
 (defn file-exists?
   [filename]
   (let [f (io/file filename)]
@@ -42,10 +39,6 @@
     (and (some? f)
          (.isDirectory f)
          (.exists f))))
-
-(defn ^:deprecated file-last-modified
-  [filename]
-  (.lastModified (io/file filename)))
 
 (defn last-modified
   [filename]
@@ -75,16 +68,6 @@
          (.listFiles)
          (seq)
          (mapv #(.getPath %)))))
-
-(defn ^:deprecated file-mkdir
-  "Equivalent to mkdir <filename>"
-  [filename]
-  (.mkdir (io/file filename)))
-
-(defn ^:deprecated file-mkdirs
-  "Equivalent to mkdir -p <filename>"
-  [filename]
-  (.mkdirs (io/file filename)))
 
 (defn mkdir
   "Equivalent to mkdir <filename>"

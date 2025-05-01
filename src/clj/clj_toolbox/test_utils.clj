@@ -1,7 +1,14 @@
 (ns clj-toolbox.test-utils
+  "
+  Utilities for making it easier to write tests.
+  `defntest` and `defntest-1` are macros for simplifying writing tests for simple functions that require no extra setup, just checking expected outputs against inputs.
+  `test-dir` creates a temp directory that is named after the current test
+  "
   (:require [clojure.test :refer :all]
-            [clj-toolbox.prelude :refer [strict-partition]]
-            [clj-toolbox.strings :refer [box-trim]]))
+            [clojure.string :as str]
+            [clj-toolbox.colls :refer [strict-partition]]
+            [clj-toolbox.strings :refer [box-trim]]
+            [clj-toolbox.files :as files]))
 
 (defmacro make-test-body
   [expected f input]
@@ -72,3 +79,17 @@
   [expected & body]
   `(let [actual# (with-out-str ~@body)]
       (is (= (box-trim ~expected) (box-trim actual#)))))
+
+(defn- var-name
+  "Retrieves the name of a clojure.lang.Var"
+  [v]
+  (let [m (meta v)]
+    (get m :name)))
+
+(defn test-dir
+  "Creates an approriately named temp directory for the current test"
+  []
+  (let [curr-ns (-> *testing-vars* first meta :ns)
+        vars-strs (map var-name (reverse *testing-vars*))
+        prefix (str/join \. (concat [curr-ns] vars-strs (reverse *testing-contexts*)))]
+    (files/temp-dir :prefix prefix)))

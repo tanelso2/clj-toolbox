@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+* Remove deprecated functions from clj-toolbox.files
+* Added clj-toolbox.modules for copying vars from other modules
+* Broke out everything from clj-toolbox.prelude into relevant modules - copied back in to prelude by using clj-toolbox.modules/copy-into-ns
+* Removed defnmem from clj-toolbox.prelude (I did not actually use it much and the clj-toolbox.modules macros can't handle other macros yet)
+* Moved most cljc modules to being clj modules
+* Add clj-toolbox.test-utils/test-dir
+* Added namespace documentation
 
 ## [1.0.1] — 2025-04-23
 * Switch clj-toolbox.test-utils to use box-trim from clj-toolbox.strings

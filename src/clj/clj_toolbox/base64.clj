@@ -1,4 +1,5 @@
 (ns clj-toolbox.base64
+  "Functions for converting to/from base64"
   (:import
     [java.util Base64]))
 
