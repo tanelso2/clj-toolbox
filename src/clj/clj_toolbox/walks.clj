@@ -1,4 +1,5 @@
 (ns clj-toolbox.walks
+  "Collection of functions to make it easier to walk various clojure structures"
   (:require [clojure.walk :refer [postwalk]]))
 
 (defn walk-with

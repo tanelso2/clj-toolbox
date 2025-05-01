@@ -1,6 +1,7 @@
 (ns clj-toolbox.test-utils-test
   (:require [clojure.test :refer :all]
-            [clj-toolbox.test-utils :refer :all]))
+            [clj-toolbox.test-utils :refer :all]
+            [clojure.string :as str]))
 
 (defntest max
   [1 2 3] 3
@@ -79,3 +80,29 @@
                           "
       (doseq [x ["Alice" "Bob" "Charlie"]]
         (println (str "Hello " x "!"))))))
+
+(deftest child-test
+  (testing 'children-i-guess
+    (let [t (make-test-dir)]
+      (case (count *testing-vars*)
+        1 (do 
+            (is (str/includes? t "child-test.children-i-guess")))
+        2 (do
+            (is (str/includes? t "make-test-dir-test.child-test"))
+            (is (str/includes? t "children.children-i-guess")))))))
+
+(deftest make-test-dir-test
+  (testing 'contains-ns
+    (let [t (make-test-dir)]
+      (is (str/includes? t "clj-toolbox.test-utils-test"))))
+  (testing 'one-context
+    (let [t (make-test-dir)]
+      (is (str/includes? t "make-test-dir-test"))
+      (is (str/includes? t "one-context"))))
+  (testing 'wrapper
+    (testing 'another
+      (testing 'wrapped
+        (let [t (make-test-dir)]
+          (is (str/includes? t "make-test-dir-test.wrapper.another.wrapped"))))))
+  (testing 'children
+    (child-test)))
