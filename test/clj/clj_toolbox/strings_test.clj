@@ -74,3 +74,19 @@
   "1
    2
    3" ["1" "2" "3"])
+
+(defntest re-has?
+  [#"xkcd" "abcdefxkcd"] true
+  [#"xkcd" "abcdef"] false
+  [#"\d+" "abcdef"] false
+  [#"\d+" "123456"] true 
+  [#"^[abc]+$" "aaabbbbcccc"] true
+  [#"^[abc]+$" "aaabbbbdddd"] false 
+  [#"[abc]+" "aaabbbbdddd"] true) 
+
+(defntest-1 parse-int
+  "21"  21
+  "420" 420
+  "83"  83
+  "-29" -29
+  "x" (thrown? Exception))
