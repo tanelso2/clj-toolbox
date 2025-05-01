@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+
+## [2.0.0] — 2025-04-30
 * Remove deprecated functions from clj-toolbox.files
 * Added clj-toolbox.modules for copying vars from other modules
 * Broke out everything from clj-toolbox.prelude into relevant modules - copied back in to prelude by using clj-toolbox.modules/copy-into-ns
@@ -112,4 +114,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [0.11.1]: https://github.com/tanelso2/clj-toolbox/compare/0.11.0...0.11.1
 [1.0.0]: https://github.com/tanelso2/clj-toolbox/compare/0.11.1...1.0.0
 [1.0.1]: https://github.com/tanelso2/clj-toolbox/compare/1.0.0...1.0.1
-[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/1.0.1...HEAD
+[2.0.0]: https://github.com/tanelso2/clj-toolbox/compare/1.0.1...2.0.0
+[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/2.0.0...HEAD
