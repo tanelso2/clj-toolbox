@@ -37,3 +37,10 @@
 (defntest average-by
   [second [[:a 1] [:b 2] [:c 3]]] 2
   [inc [0 1 2]] 2)
+
+(defntest-1 parse-int
+  "21"  21
+  "420" 420
+  "83"  83
+  "-29" -29
+  "x" (thrown? Exception))

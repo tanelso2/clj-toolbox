@@ -1,4 +1,5 @@
 (ns clj-toolbox.atoms
+  "Tools for atoms with extra effects"
   (:require
     [clj-toolbox.prelude :refer :all]))
 

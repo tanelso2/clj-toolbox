@@ -83,10 +83,3 @@
   [#"^[abc]+$" "aaabbbbcccc"] true
   [#"^[abc]+$" "aaabbbbdddd"] false 
   [#"[abc]+" "aaabbbbdddd"] true) 
-
-(defntest-1 parse-int
-  "21"  21
-  "420" 420
-  "83"  83
-  "-29" -29
-  "x" (thrown? Exception))

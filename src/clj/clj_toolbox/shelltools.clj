@@ -1,4 +1,5 @@
 (ns clj-toolbox.shelltools
+  "Tools for making it easier to use clojure as a bash replacement"
   (:require
     [clojure.java.shell :refer [sh *sh-env*]]))
 

@@ -1,4 +1,5 @@
 (ns clj-toolbox.files
+  "Functions for manipulating files"
   (:require
     [clojure.java.io :as io]
     [clojure.string :as str])

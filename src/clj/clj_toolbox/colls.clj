@@ -1,4 +1,5 @@
-(ns clj-toolbox.colls)
+(ns clj-toolbox.colls
+  "Functions for manipulating and traversing collections")
 
 (defn ^{:see-also clojure.core/empty?}
   not-empty?

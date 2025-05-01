@@ -1,4 +1,5 @@
 (ns clj-toolbox.streams
+  "Functions for working with Streams"
   (:import
     [java.io PipedInputStream
              PipedOutputStream

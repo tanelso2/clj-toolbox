@@ -1,4 +1,5 @@
-(ns clj-toolbox.transients)
+(ns clj-toolbox.transients
+  "Additional functions for working with Clojure's transients")
 
 (defn update!
   "Like update, but for transients"

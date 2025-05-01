@@ -4,7 +4,7 @@
     [clj-toolbox.files :as files :refer :all]
     [clj-toolbox.test-utils :refer :all]
     [clojure.string :as str]
-    [clj-toolbox.prelude :refer [not-empty?]]
+    [clj-toolbox.colls :refer [not-empty?]]
     [clojure.test.check.generators :as gen]
     [com.gfredericks.test.chuck.clojure-test :refer [checking]])
   (:import
@@ -40,13 +40,13 @@
 
 (deftest file-exists?-test
   (testing 'file-exists?
-    (let [dir (temp-dir)
+    (let [dir (test-dir)
           test-path (files/f+ dir "test")]
       (is (false? (file-exists? test-path)))
       (spit test-path "hello")
       (is (true? (file-exists? test-path)))))
   (testing 'file-exists?-false-on-dirs
-    (let [dir (temp-dir)
+    (let [dir (test-dir)
           test-path (files/f+ dir "test")]
       (is (false? (file-exists? test-path)))
       (mkdirs test-path)
@@ -54,13 +54,13 @@
 
 (deftest dir-exists?-test
   (testing 'dir-exists?
-    (let [dir (temp-dir)
+    (let [dir (test-dir)
           test-path (files/f+ dir "test")]
       (is (false? (dir-exists? test-path)))
       (mkdirs test-path)
       (is (true? (dir-exists? test-path)))))
   (testing 'dir-exists?-false-on-files
-    (let [dir (temp-dir)
+    (let [dir (test-dir)
           test-path (files/f+ dir "test")]
       (is (false? (dir-exists? test-path)))
       (spit test-path "Hello")
@@ -68,7 +68,7 @@
 
 (deftest mkdir-test
   (testing 'mkdir
-    (let [dir (temp-dir)
+    (let [dir (test-dir)
           test-dir (abs-path-join dir "test")]
       (is (true? (dir-exists? dir)))
       (is (false? (dir-exists? test-dir)))
@@ -77,7 +77,7 @@
 
 (deftest mkdirs-test
   (testing 'mkdirs
-    (let [dir (temp-dir)
+    (let [dir (test-dir)
           test-dir (str/join "/" [dir "test" "long" "path"])]
       (is (true? (dir-exists? dir)))
       (is (false? (dir-exists? test-dir)))
@@ -86,7 +86,7 @@
 
 (deftest read-all-test
   (testing 'read-all
-    (let [dir (temp-dir)
+    (let [dir (test-dir)
           test-file (path-join dir "test.clj")]
       (spit test-file "
             (abc 123)
@@ -152,7 +152,7 @@
 
 (deftest children-test
   (testing 'children
-    (let [d (files/temp-dir)
+    (let [d (test-dir)
           a (files/f!+ d "a")
           b (files/f!+ d "b")]
       (spit a "Hello")

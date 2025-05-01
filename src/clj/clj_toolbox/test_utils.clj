@@ -1,4 +1,9 @@
 (ns clj-toolbox.test-utils
+  "
+  Utilities for making it easier to write tests.
+  `defntest` and `defntest-1` are macros for simplifying writing tests for simple functions that require no extra setup, just checking expected outputs against inputs.
+  `test-dir` creates a temp directory that is named after the current test
+  "
   (:require [clojure.test :refer :all]
             [clojure.string :as str]
             [clj-toolbox.colls :refer [strict-partition]]
@@ -81,7 +86,7 @@
   (let [m (meta v)]
     (get m :name)))
 
-(defn make-test-dir
+(defn test-dir
   "Creates an approriately named temp directory for the current test"
   []
   (let [curr-ns (-> *testing-vars* first meta :ns)

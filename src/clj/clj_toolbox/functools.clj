@@ -1,4 +1,5 @@
 (ns clj-toolbox.functools
+  "Functions for manipulating functions and producing other functions"
   (:require
     [clojure.core.async :as a :refer [go-loop timeout <!]]))
 

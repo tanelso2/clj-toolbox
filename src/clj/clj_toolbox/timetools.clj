@@ -1,4 +1,5 @@
 (ns clj-toolbox.timetools
+  "Functions for working with time"
   (:import
     [java.util Date]))
 

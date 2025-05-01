@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Removed defnmem from clj-toolbox.prelude (I did not actually use it much and the clj-toolbox.modules macros can't handle other macros yet)
 * Moved most cljc modules to being clj modules
 * Add clj-toolbox.test-utils/make-test-dir
+* Added namespace documentation
 
 ## [1.0.1] — 2025-04-23
 * Switch clj-toolbox.test-utils to use box-trim from clj-toolbox.strings

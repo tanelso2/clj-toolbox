@@ -83,26 +83,26 @@
 
 (deftest child-test
   (testing 'children-i-guess
-    (let [t (make-test-dir)]
+    (let [t (test-dir)]
       (case (count *testing-vars*)
         1 (do 
             (is (str/includes? t "child-test.children-i-guess")))
         2 (do
-            (is (str/includes? t "make-test-dir-test.child-test"))
+            (is (str/includes? t "test-dir-test.child-test"))
             (is (str/includes? t "children.children-i-guess")))))))
 
-(deftest make-test-dir-test
+(deftest test-dir-test
   (testing 'contains-ns
-    (let [t (make-test-dir)]
+    (let [t (test-dir)]
       (is (str/includes? t "clj-toolbox.test-utils-test"))))
   (testing 'one-context
-    (let [t (make-test-dir)]
-      (is (str/includes? t "make-test-dir-test"))
+    (let [t (test-dir)]
+      (is (str/includes? t "test-dir-test"))
       (is (str/includes? t "one-context"))))
   (testing 'wrapper
     (testing 'another
       (testing 'wrapped
-        (let [t (make-test-dir)]
-          (is (str/includes? t "make-test-dir-test.wrapper.another.wrapped"))))))
+        (let [t (test-dir)]
+          (is (str/includes? t "test-dir-test.wrapper.another.wrapped"))))))
   (testing 'children
     (child-test)))

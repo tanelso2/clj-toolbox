@@ -1,4 +1,5 @@
-(ns clj-toolbox.modules)
+(ns clj-toolbox.modules
+  "Macros for copying vars from another module into the current one")
 
 (defn- copy-var-fn
   [^clojure.lang.Symbol from-ns

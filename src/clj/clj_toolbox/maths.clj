@@ -1,4 +1,5 @@
-(ns clj-toolbox.maths)
+(ns clj-toolbox.maths
+  "Functions for math and numbers")
 
 (defn square
   "Returns the square of a number"
@@ -47,3 +48,8 @@
   (->> coll
        (map f)
        (average)))
+
+(defn parse-int
+  "Shortcut for Integer/parseInt to make it easier to pass around as an argument"
+  [s]
+  (Integer/parseInt s))

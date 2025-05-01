@@ -1,4 +1,10 @@
 (ns clj-toolbox.strings
+  "
+  Functions for working with strings.
+
+  Note: This should not include parsing functions, those should go in modules related to what they are parsing from the string
+  "
+  
   (:require
     [clojure.string :as str]
     [clj-toolbox.colls :refer [not-empty?]]))
@@ -47,8 +53,3 @@
   "Tests whether re matches any part of s. Returns a boolean"
   [re s]
   (not-empty? (re-seq re s)))
-
-(defn parse-int
-  "Shortcut for Integer/parseInt to make it easier to pass around as an argument"
-  [s]
-  (Integer/parseInt s))
