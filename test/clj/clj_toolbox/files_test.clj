@@ -8,7 +8,8 @@
     [clojure.test.check.generators :as gen]
     [com.gfredericks.test.chuck.clojure-test :refer [checking]])
   (:import
-    [java.io FileNotFoundException]))
+    [java.io FileNotFoundException]
+    [java.nio.file.attribute PosixFilePermission]))
 
 (defntest-1 path->filename
   "/bin/bash" "bash"
@@ -51,6 +52,129 @@
       (is (false? (file-exists? test-path)))
       (mkdirs test-path)
       (is (false? (file-exists? test-path))))))
+
+(deftest ensure-content-test
+  (testing 'ensure-content-file-does-not-exist
+    (let [dir (test-dir)
+          test-path (files/f!+ dir "doesnotexist")
+          s "Hello world"]
+      (is (false? (files/file-exists? test-path)))
+      (is (true? (files/ensure-content test-path s)))
+      (let [content (slurp test-path)]
+        (is (= s content)))))
+  (testing 'ensure-content-file-has-other-data
+    (let [dir (test-dir)
+          test-path (files/f!+ dir "test.txt")
+          s "Hello world!"]
+      (spit test-path "Goodbye")
+      (is (true? (files/ensure-content test-path s)))
+      (let [content (slurp test-path)]
+        (is (= s content)))))
+  (testing 'ensure-content-file-already-matches
+    (let [dir (test-dir)
+          test-path (files/f!+ dir "testing")
+          s "Hello world"]
+      (spit test-path s)
+      (is (false? (files/ensure-content test-path s)))))
+  (testing 'ensure-content-function-call
+    (let [dir (test-dir)
+          test-path (files/f!+ dir "test.txt")
+          f (fn [n] (str "Number " n))]
+      (is (false? (files/file-exists? test-path)))
+      (is (true? (files/ensure-content test-path #(f 9))))
+      (let [content (slurp test-path)
+            expected "Number 9"] 
+        (is (= content
+               expected)))
+      (is (true? (files/ensure-content test-path #(f 5))))
+      (let [content (slurp test-path)
+            expected "Number 5"]
+        (is (= content expected)))
+      (is(false? (files/ensure-content test-path #(f 5))))
+      (let [content (slurp test-path)
+            expected "Number 5"]
+        (is (= content expected))))))
+
+(deftest symlink-exists?-test
+  (testing 'symlink-exists?
+    (let [dir (test-dir)
+          f (files/f!+ dir "target.txt")
+          link (files/f!+ dir "link.txt")
+          content "abc123"]
+      (is (false? (files/file-exists? f)))
+      (is (false? (files/file-exists? link)))
+      (is (false? (files/symlink-exists? f)))
+      (is (false? (files/symlink-exists? link)))
+      (spit f content)
+      (is (true? (files/file-exists? f)))
+      (is (false? (files/file-exists? link)))
+      (is (false? (files/symlink-exists? f)))
+      (is (false? (files/symlink-exists? link)))
+      (files/create-symlink link f)
+      (is (true? (files/file-exists? f)))
+      (is (true? (files/file-exists? link)))
+      (is (false? (files/symlink-exists? f)))
+      (is (true? (files/symlink-exists? link)))
+      (let [fstr (slurp f)
+            linkstr (slurp link)]
+        (is (= fstr linkstr))
+        (is (= content linkstr))
+        (is (= content fstr))))))
+
+(defntest-1 number->perms
+  1 [false false true]
+  2 [false true false]
+  7 [true true true]
+  3 [false true true]
+  5 [true false true]
+  0 [false false false])
+
+(defntest perms->number
+  [true nil false] 4
+  [:r :w false] 6
+  [true true true] 7
+  [nil nil nil] 0)
+
+(defntest-1 perms-set->number
+  #{:OWNER_READ} 400
+  #{:OWNER_READ :OWNER_WRITE :OWNER_EXECUTE} 700
+  #{:OWNER_READ :GROUP_READ :OTHERS_READ} 444
+  #{:OWNER_READ :OWNER_WRITE :OWNER_EXECUTE
+    :GROUP_READ :GROUP_EXECUTE
+    :OTHERS_READ :OTHERS_EXECUTE} 755)
+
+(defntest-1 number->perms-set
+  400 #{:OWNER_READ}
+  700 #{:OWNER_READ :OWNER_WRITE :OWNER_EXECUTE}
+  755 #{:OWNER_READ :OWNER_WRITE :OWNER_EXECUTE
+        :GROUP_READ :GROUP_EXECUTE
+        :OTHERS_READ :OTHERS_EXECUTE})
+
+(defntest-1 perm-keyword->enum
+  :OWNER_READ PosixFilePermission/OWNER_READ 
+  :OTHERS_EXECUTE PosixFilePermission/OTHERS_EXECUTE)
+
+(deftest posix-perms-test
+  (testing 'setting-and-getting
+    (let [dir (test-dir)
+          test-path (files/f!+ dir "test")]
+      (spit test-path "ptooey")
+      (files/set-posix-perms! test-path #{:OWNER_READ})
+      (let [perms (files/posix-perms test-path)]
+        (is (= 1 (count perms)))
+        (is (= #{:OWNER_READ} perms)))
+      (is (thrown? FileNotFoundException (spit test-path "hwock")))
+      (files/set-posix-perms! test-path #{:OWNER_READ :OWNER_WRITE})
+      (let [perms (files/posix-perms test-path)]
+        (is (= 2 (count perms)))
+        (is (= #{:OWNER_READ :OWNER_WRITE} perms)))
+      (spit test-path "pfffttt..... nothing but dust")
+      (files/set-posix-perms! test-path #{:OWNER_READ :GROUP_READ})
+      (let [perms (files/posix-perms test-path)]
+        (is (= 2 (count perms)))
+        (is (= #{:OWNER_READ :GROUP_READ} perms)))
+      (is (thrown? Exception (spit test-path "hwock"))))))
+      
 
 (deftest dir-exists?-test
   (testing 'dir-exists?

@@ -5,7 +5,11 @@
     [clojure.string :as str])
   (:import
     [java.io FileNotFoundException]
-    [java.nio.file Files]))
+    [java.nio.file Files LinkOption]
+    [java.nio.file.attribute FileAttribute PosixFilePermission PosixFilePermissions]))
+
+(defn to-path [f]
+  (-> f (io/file) (.toPath)))
 
 (defn temp-dir
   "
@@ -14,7 +18,7 @@
   [& {:keys [prefix]
       :or {prefix ""}}]
   (.toString (Files/createTempDirectory prefix
-               (into-array java.nio.file.attribute.FileAttribute []))))
+               (into-array FileAttribute []))))
 
 (defn temp-file
   "
@@ -39,6 +43,105 @@
     (and (some? f)
          (.isDirectory f)
          (.exists f))))
+
+(defn symlink-exists?
+  [path]
+  (let [p (to-path path)]
+    (and (some? p)
+         (Files/isSymbolicLink p))))
+
+(defn create-symlink
+  [symlink-path target]
+  (let [l (to-path symlink-path)
+        t (to-path target)
+        attrs (into-array FileAttribute [])]
+    (Files/createSymbolicLink l t attrs)))
+
+(defn read-symlink
+  [path]
+  (Files/readSymbolicLink (to-path path)))
+
+(defn ensure-symlink
+  "
+    TODO
+  "
+  [link target]
+  ; TODO
+  nil)
+
+(defn- enum->keyword
+  [x]
+  (-> x str keyword))
+
+(defn perm-keyword->enum
+  [k]
+  (-> k
+      (name)
+      (PosixFilePermission/valueOf)))
+
+(defn posix-perms
+  [path]
+  (let [opts (into-array LinkOption [])
+        path' (to-path path)
+        perms (Files/getPosixFilePermissions path' opts)]
+    (->> perms
+        (map enum->keyword)
+        (into #{}))))
+
+(defn set-posix-perms!
+  [f perms]
+  (let[p (to-path f)
+       perms' (->> perms
+                   (map perm-keyword->enum)
+                   (into #{}))]
+    (Files/setPosixFilePermissions p perms')))
+
+(defn perms->number
+  [r w x]
+  (cond-> 0
+    r (+ 4)
+    w (+ 2)
+    x (+ 1)))
+
+(defn number->perms
+  [n]
+  (let [x (bit-test n 0)
+        w (bit-test n 1)
+        r (bit-test n 2)]
+    [r w x]))
+
+(defn perms-set->number
+  [perms]
+  (let [user-perms (perms->number (get perms :OWNER_READ)
+                                  (get perms :OWNER_WRITE)
+                                  (get perms :OWNER_EXECUTE))
+        group-perms (perms->number (get perms :GROUP_READ)
+                                   (get perms :GROUP_WRITE)
+                                   (get perms :GROUP_EXECUTE))
+        others-perms (perms->number (get perms :OTHERS_READ)
+                                    (get perms :OTHERS_WRITE)
+                                    (get perms :OTHERS_EXECUTE))]
+    (+ (* 100 user-perms)
+       (* 10 group-perms)
+       (* 1 others-perms))))
+
+(defn number->perms-set
+  [n]
+  (let [[u g o] (->> (str n)
+                     (map int))
+        [ur uw ux] (number->perms u)
+        [gr gw gx] (number->perms g)
+        [or' ow ox] (number->perms o)]
+    (cond-> #{}
+      ur (conj :OWNER_READ)
+      uw (conj :OWNER_WRITE)
+      ux (conj :OWNER_EXECUTE)
+      gr (conj :GROUP_READ)
+      gw (conj :GROUP_WRITE)
+      gx (conj :GROUP_EXECUTE)
+      or' (conj :OTHERS_READ)
+      ow (conj :OTHERS_WRITE)
+      ox (conj :OTHERS_EXECUTE))))
 
 (defn last-modified
   [filename]
@@ -138,6 +241,26 @@
 (def f+ path-join)
 
 (def f!+ abs-path-join)
+
+(defn ensure-content
+  "
+    Ensures the content of the file matches expected.
+    Expected can be either a string or a 0-arg function.
+    Returns true if this function modified the file.
+  "
+  [path expected]
+  (let [expected-str (cond (string? expected) expected
+                           (fn? expected) (expected))]
+    (if (file-exists? path)
+      (let [actual (slurp path)]
+        (if (not= expected-str actual)
+          (do
+            (spit path expected-str)
+            true)
+          false))
+      (do
+        (spit path expected-str)
+        true))))
 
 (defn read-all
  "
