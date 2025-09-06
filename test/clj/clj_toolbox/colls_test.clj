@@ -28,7 +28,11 @@
 (defntest take-range
   [1 2 [1 2 3]] [2]
   [5 2 [1 2 3]] (thrown? AssertionError)
-  [1 3 [1 2 3 4]] [2 3])
+  [1 3 [1 2 3 4]] [2 3]
+  [1 3 [1 2 3 4] :include-end? true] [2 3 4]
+  [1 3 [1 2 3 4] :include-start? false] [3]
+  [1 3 [1 2 3 4] :include-start? false
+                 :include-end? true] [3 4])
 
 (deftest take-range-test
   (testing 'take-range-zero-to-length
