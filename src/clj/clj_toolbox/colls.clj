@@ -48,13 +48,26 @@
 
 (defn take-range
   "
-    Returns the part of the coll from index start (inclusive) to end (exclusive).
+    Returns the part of the coll from index start to end.
+
+    Defaults to start being inclusive and end being exclusive, but can be changed with keyword options.
   "
-  [start end coll]
+  [start end coll
+   & {:keys [include-start? include-end?]
+      :or {include-start? true
+           include-end? false}}];}}]
   (assert (>= end start) "Can't take a range from a higher number to a lower number")
-  (->> coll
-       (drop start)
-       (take (- end start))))
+  (let [start-idx (if include-start?
+                    start
+                    ; Increment past it
+                    (inc start))
+        end-idx (if include-end?
+                  ; Increment to include it
+                  (inc end)
+                  end)]
+    (->> coll
+         (drop start-idx)
+         (take (- end-idx start-idx)))))
 
 (defn into-map
   "
