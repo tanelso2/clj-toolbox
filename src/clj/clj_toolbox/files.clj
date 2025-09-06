@@ -62,12 +62,15 @@
   (Files/readSymbolicLink (to-path path)))
 
 (defn ensure-symlink
-  "
-    TODO
-  "
   [link target]
-  ; TODO
-  nil)
+  (if (symlink-exists? link)
+    (let [actual-target (read-symlink link)]
+      (if (= actual-target target)
+        false
+        (do (create-symlink link target)
+            true)))
+    (do (create-symlink link target)
+        false)))
 
 (defn- enum->keyword
   [x]
