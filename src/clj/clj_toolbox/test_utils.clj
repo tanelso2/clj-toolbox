@@ -10,7 +10,7 @@
             [clj-toolbox.strings :refer [box-trim]]
             [clj-toolbox.files :as files]))
 
-(defmacro make-test-body
+(defn- make-test-body
   [expected f input]
   (cond
     (and
@@ -53,7 +53,7 @@
       (testing ~funcname
         ~@(for [[i in exp] v]
             `(testing ~(str "case" i)
-                (make-test-body ~exp ~f ~in)))))))
+                ~(make-test-body exp f in)))))))
 
 (defn- wrap-first-arg-for-apply
   [coll]
