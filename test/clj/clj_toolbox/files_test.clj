@@ -121,6 +121,55 @@
         (is (= content linkstr))
         (is (= content fstr))))))
 
+(deftest read-symlink-test
+  (testing 'read-symlink
+    (let [d (test-dir)
+          target (files/f!+ d "target")
+          link (files/f!+ d "link")]
+      (files/create-symlink link target)
+      (is (true? (files/symlink-exists? link)))
+      (let [actual-target (files/read-symlink link)
+            target-filename (files/path->filename actual-target)]
+        (is (= target actual-target))
+        (is (= "target" target-filename))
+        (is (str/includes? (.toString actual-target) (.toString d)))))))
+
+(deftest ensure-symlink-test
+  (testing 'ensure-symlink-does-not-exist
+    (let [d (test-dir)
+          target (files/f!+ d "target")
+          link (files/f!+ d "link")]
+      (is (false? (files/file-exists? target)))
+      (is (false? (files/file-exists? link)))
+      (is (true? (files/ensure-symlink link target)))
+      (is (true? (files/symlink-exists? link)))
+      (is (= target (files/read-symlink link)))))
+  (testing 'ensure-symlink-already-correct
+    (let [d (test-dir)
+          target (files/f!+ d "target")
+          link (files/f!+ d "link")]
+      (is (false? (files/file-exists? target)))
+      (is (false? (files/file-exists? link)))
+      (files/create-symlink link target)
+      (is (true? (files/symlink-exists? link)))
+      (is (= target (files/read-symlink link)))
+      (is (false? (files/ensure-symlink link target)))
+      (is (true? (files/symlink-exists? link)))
+      (is (= target (files/read-symlink link)))))
+  (testing 'ensure-symlink-incorrect
+    (let [d (test-dir)
+          target (files/f!+ d "target")
+          target2 (files/f!+ d "target2")
+          link (files/f!+ d "link")]
+      (is (false? (files/file-exists? target)))
+      (is (false? (files/file-exists? link)))
+      (files/create-symlink link target)
+      (is (true? (files/symlink-exists? link)))
+      (is (= target (files/read-symlink link)))
+      (is (true? (files/ensure-symlink link target2)))
+      (is (true? (files/symlink-exists? link)))
+      (is (= target2 (files/read-symlink link))))))
+
 (defntest-1 number->perms
   1 [false false true]
   2 [false true false]

@@ -59,7 +59,7 @@
 
 (defn read-symlink
   [path]
-  (Files/readSymbolicLink (to-path path)))
+  (.toString (Files/readSymbolicLink (to-path path))))
 
 (defn ensure-symlink
   [link target]
@@ -67,10 +67,13 @@
     (let [actual-target (read-symlink link)]
       (if (= actual-target target)
         false
-        (do (create-symlink link target)
+        (do (-> link
+                (io/file)
+                (.delete))
+            (create-symlink link target)
             true)))
     (do (create-symlink link target)
-        false)))
+        true)))
 
 (defn- enum->keyword
   [x]
