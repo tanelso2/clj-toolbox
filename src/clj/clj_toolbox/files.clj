@@ -5,7 +5,10 @@
     [clojure.string :as str])
   (:import
     [java.io FileNotFoundException]
-    [java.nio.file Files]))
+    [java.nio.file CopyOption
+                   Files
+                   Path
+                   Paths]))
 
 (defn temp-dir
   "
@@ -139,6 +142,25 @@
 
 (def f!+ abs-path-join)
 
+(defn home
+  []
+  (System/getProperty "user.home"))
+
+(defn as-path
+  [x]
+  (Paths/get x (into-array String [])))
+
+(defn copy
+  [src dst]
+  (let [^Path src' (as-path src)
+        ^Path dst' (as-path dst)]
+    (Files/copy src' dst' (into-array CopyOption []))))
+
+(defn backup!
+  [f]
+  (let [backup-file (str f ".bak")]
+    (copy f backup-file)))
+
 (defn read-all
  "
   Reads all Clojure forms from file {f}
@@ -150,4 +172,5 @@
    (with-open [in (java.io.PushbackReader. (clojure.java.io/reader f))]
     (let [obj-seq (repeatedly (partial read {:eof :theend} in))]
       (doall (take-while (partial not= :theend) obj-seq))))))
+
 

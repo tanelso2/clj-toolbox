@@ -167,3 +167,28 @@
   (testing 'children-throws-on-file
     (let [f (files/temp-file)]
       (is (thrown? FileNotFoundException (children f))))))
+
+(deftest homedir-test
+  (testing 'home
+    (is (= (home)
+           (System/getenv "HOME")
+           (System/getProperty "user.home")))))
+
+(deftest backup-test
+  (testing 'backup!
+    (let [d (test-dir)
+          f (f!+ d "f")
+          bak (f!+ d "f.bak")
+          content "8675309\nJenny please call me back"]
+      (is (not (file-exists? f))) 
+      (is (not (file-exists? bak))) 
+      (spit f content)
+      (is (file-exists? f)) 
+      (is (not (file-exists? bak))) 
+      (backup! f)
+      (is (file-exists? f)) 
+      (is (file-exists? bak)) 
+      (is (= content (slurp bak))))))
+      
+      
+          
