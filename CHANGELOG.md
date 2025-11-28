@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+
+## [2.1.1] — 2025-11-28
 This release exists because I messed up the release process for 2.1.0
 
 ## [2.1.0] — 2025-11-28
@@ -125,4 +127,5 @@ This release exists because I messed up the release process for 2.1.0
 [2.0.0]: https://github.com/tanelso2/clj-toolbox/compare/1.0.1...2.0.0
 [2.1.0]: https://github.com/tanelso2/clj-toolbox/compare/2.0.0...2.1.0
 [2.1.0]: https://github.com/tanelso2/clj-toolbox/compare/2.1.0...2.1.0
-[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/2.1.0...HEAD
+[2.1.1]: https://github.com/tanelso2/clj-toolbox/compare/2.1.0...2.1.1
+[Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/2.1.1...HEAD
