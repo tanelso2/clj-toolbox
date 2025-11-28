@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [2.1.0] — 2025-11-28
+
+## [2.1.0] — 2025-11-28
 * Add inclusive/exclusive options to clj-toolbox.colls/take-range
 * Convert some extraneous macros in clj-toolbox.test-utils to be a function instead
 * Add clj-toolbox.files/copy
@@ -123,4 +125,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [1.0.1]: https://github.com/tanelso2/clj-toolbox/compare/1.0.0...1.0.1
 [2.0.0]: https://github.com/tanelso2/clj-toolbox/compare/1.0.1...2.0.0
 [2.1.0]: https://github.com/tanelso2/clj-toolbox/compare/2.0.0...2.1.0
+[2.1.0]: https://github.com/tanelso2/clj-toolbox/compare/2.1.0...2.1.0
 [Unreleased]: https://github.com/tanelso2/clj-toolbox/compare/2.1.0...HEAD
