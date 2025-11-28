@@ -7,8 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
-
-## [2.1.0] — 2025-11-28
+This release exists because I messed up the release process for 2.1.0
 
 ## [2.1.0] — 2025-11-28
 * Add inclusive/exclusive options to clj-toolbox.colls/take-range
